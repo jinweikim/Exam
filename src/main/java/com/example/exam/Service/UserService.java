@@ -1,6 +1,7 @@
 package com.example.exam.Service;
 
 import com.example.exam.Entity.User;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ public interface UserService {
     User getUserByGrade(int grade);
     public List<User> getUserList();
     public int add(User user);
+    Integer deleteById(int id);
+    Integer update(User user);
 }

@@ -61,43 +61,13 @@
             </th>
             <th>ID</th>
             <th>用户名</th>
-            <th>性别</th>
-            <th>手机</th>
-            <th>邮箱</th>
-            <th>地址</th>
-            <th>加入时间</th>
-            <th>状态</th>
-            <th>操作</th></tr>
+            <th>密码</th>
+            <th>分数</th>
+            <th>班级</th>
+            <th>操作</th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-            <td>1</td>
-            <td>小明</td>
-            <td>男</td>
-            <td>13000000000</td>
-            <td>admin@mail.com</td>
-            <td>北京市 海淀区</td>
-            <td>2017-01-01 11:11:42</td>
-            <td class="td-status">
-                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-            <td class="td-manage">
-                <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                    <i class="layui-icon">&#xe601;</i>
-                </a>
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit',600,400)" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
-                    <i class="layui-icon">&#xe631;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
         <c:forEach items="${studentList}" var="s">
         <tr>
             <td>
@@ -109,20 +79,14 @@
                 <td>${s.password}</td>
                 <td>${s.grade}</td>
                 <td>${s.userClass}</td>
-            <td class="td-status">
-                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+            <%--<td class="td-status">--%>
+                <%--</td>--%>
             <td class="td-manage">
-                <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                    <i class="layui-icon">&#xe601;</i>
-                </a>
                 <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
+                    <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                 </a>
-                <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
-                    <i class="layui-icon">&#xe631;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
+                <a title="删除" onclick="x_admin_show('删除','member-password.html',600,400)"  href="javascript:;">
+                    <span class="layui-btn layui-btn-normal layui-btn-mini">删除</span>
                 </a>
             </td>
         </tr>

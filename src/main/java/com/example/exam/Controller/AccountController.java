@@ -74,14 +74,26 @@ public class AccountController {
         return mav;
     }
 
-@RequestMapping("/student_edit/{id}")
-    public ModelAndView studentEdit(HttpServletRequest request, @PathVariable String id){
+    @RequestMapping("/student_edit/{id}")
+    public ModelAndView studentEdit(@PathVariable String id){
         User user = userService.getUserById(id);
         ModelAndView mav = new ModelAndView();
         mav.addObject("user",user);
         mav.setViewName("student_edit");
         return mav;
     }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public ModelAndView UserUpdate(User user){
+        ModelAndView mav = new ModelAndView();
+        logger.info("更改用户信息:"+user.getUsername());
+        logger.info("更改用户信息:"+user.getPassword());
+        userService.update(user);
+        mav.setViewName("student_list");
+        return mav;
+    }
+
+
 
 
 

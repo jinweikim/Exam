@@ -28,53 +28,57 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form" a>
+    <form class="layui-form" action="/account/update" method="post">
         <div class="layui-form-item">
-            <label for="L_email" class="layui-form-label">
-                <span class="x-red">*</span>邮箱
+            <label for="L_id" class="layui-form-label">
+                <span class="x-red">*</span>学号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_email" placeholder=${user.id} name="email" required="" lay-verify="email"
+                <input type="text" id="L_id" value=${user.id} name="id" required=""
                        autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>将会成为您唯一的登入名
             </div>
         </div>
         <div class="layui-form-item">
             <label for="L_username" class="layui-form-label">
-                <span class="x-red">*</span>昵称
+                <span class="x-red">*</span>姓名
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
+                <input type="text" id="L_username" value=${user.username} name="username" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_pass" class="layui-form-label">
+            <label for="L_password" class="layui-form-label">
                 <span class="x-red">*</span>密码
             </label>
             <div class="layui-input-inline">
-                <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                <input type="text" id="L_password" value=${user.password} name="password" required=""
                        autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                6到16个字符
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_repass" class="layui-form-label">
-                <span class="x-red">*</span>确认密码
+            <label for="L_grade" class="layui-form-label">
+                <span class="x-red">*</span>分数
             </label>
             <div class="layui-input-inline">
-                <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                <input type="text" id="L_grade" value=${user.grade} name="grade" required="" lay-verify="repass"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_repass" class="layui-form-label">
+            <label for="L_userClass" class="layui-form-label">
+                <span class="x-red">*</span>班级
             </label>
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
+            <div class="layui-input-inline">
+                <input type="text" id="L_userClass" value=${user.userClass} name="userClass" required="" lay-verify="repass"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <button class="layui-btn" type="submit">
                 增加
             </button>
         </div>
@@ -102,17 +106,17 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
+        // form.on('submit(add)', function(data){
+        //     console.log(data);
+        //     //发异步，把数据提交给php
+        //     layer.alert("增加成功", {icon: 6},function () {
+        //         // 获得frame索引
+        //         var index = parent.layer.getFrameIndex(window.name);
+        //         //关闭当前frame
+        //         parent.layer.close(index);
+        //     });
+        //     return false;
+        // });
 
 
     });
