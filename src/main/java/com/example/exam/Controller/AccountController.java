@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/account")
@@ -39,7 +41,8 @@ public class AccountController {
 //        user.setUsername(request.getParameter("name"));
 //        user.setPassword(request.getParameter("password"));
         //       userService.add(user);
-//        User user1 = userService.getUserById("1500");
+        User user1 = userService.getUserById("1500");
+        logger.info(user1.getUsername());
         if(accountService.valid(user)){
             request.getSession().setAttribute("_session_user",user);
             logger.info("登录成功");
@@ -56,9 +59,22 @@ public class AccountController {
         return user1;
     }
 
-    @RequestMapping("/member_list")
-    public String getMemeberList(HttpServletRequest request){
-        return "member_list";
+    @RequestMapping("/student_list")
+    public ModelAndView getStudentList(HttpServletRequest request){
+        ArrayList<User> studentList = new ArrayList<>();
+
+        studentList = (ArrayList)userService.getUserList();
+        logger.info(""+studentList.size());
+        logger.info(studentList.get(0).getUsername());
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("studentList",studentList);
+        mav.setViewName("student_list");
+        return mav;
+    }
+
+    @RequestMapping("/student_edit")
+    public String studentEdit(HttpServletRequest request){
+        return "student_edit";
     }
 
 
