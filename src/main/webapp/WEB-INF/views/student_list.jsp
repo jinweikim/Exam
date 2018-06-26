@@ -98,27 +98,24 @@
                 </a>
             </td>
         </tr>
+        <c:forEach items="${studentList}" var="s">
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <c:forEach items="${studentList}" var="s">
-                <c:out value="${s.username}"></c:out>
-            </c:forEach>
-            <td>1</td>
-            <td>小明</td>
-            <td>男</td>
-            <td>13000000000</td>
-            <td>admin@mail.com</td>
-            <td>北京市 海淀区</td>
-            <td>2017-01-01 11:11:42</td>
+
+                <td>${s.id}</td>
+                <td>${s.username}</td>
+                <td>${s.password}</td>
+                <td>${s.grade}</td>
+                <td>${s.userClass}</td>
             <td class="td-status">
                 <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">
                 <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                     <i class="layui-icon">&#xe601;</i>
                 </a>
-                <a title="编辑"  onclick="x_admin_show('编辑','member-edit.html',600,400)" href="javascript:;">
+                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
@@ -129,6 +126,7 @@
                 </a>
             </td>
         </tr>
+        </c:forEach>
         </tbody>
     </table>
     <div class="page">
