@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,22 +32,21 @@ public class AccountController {
         return "login";
     }
 
-    @RequestMapping("/valid")
-    @ResponseBody
-    public String valid(HttpServletRequest request){
-        User user = new User();
-        user.setId("1501");
-        user.setUsername(request.getParameter("name"));
-        user.setPassword(request.getParameter("password"));
+    @RequestMapping(value = "/valid",method = RequestMethod.POST)
+    public String valid(User user,HttpServletRequest request){
+//        User user = new User();
+//        user.setId("1501");
+//        user.setUsername(request.getParameter("name"));
+//        user.setPassword(request.getParameter("password"));
         //       userService.add(user);
-        User user1 = userService.getUserById("1500");
+//        User user1 = userService.getUserById("1500");
         if(accountService.valid(user)){
             request.getSession().setAttribute("_session_user",user);
             logger.info("登录成功");
-            return "login success"+user1.getUsername();
+            return "index";
         }else{
             logger.info("登录失败");
-            return "login Failed";
+            return "error";
         }
     }
 
@@ -54,6 +54,11 @@ public class AccountController {
     public @ResponseBody User getuser(HttpServletRequest request){
         User user1 = userService.getUserById("1500");
         return user1;
+    }
+
+    @RequestMapping("/member_list")
+    public String getMemeberList(HttpServletRequest request){
+        return "member_list";
     }
 
 
