@@ -83,12 +83,29 @@ public class AccountController {
         return mav;
     }
 
+    @RequestMapping("/student_add")
+    public ModelAndView studentAdd(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("student_add");
+        return mav;
+    }
+
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public ModelAndView UserUpdate(User user){
         ModelAndView mav = new ModelAndView();
         logger.info("更改用户信息:"+user.getUsername());
         logger.info("更改用户信息:"+user.getPassword());
         userService.update(user);
+        mav.setViewName("student_list");
+        return mav;
+    }
+
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public ModelAndView UserAdd(User user){
+        ModelAndView mav = new ModelAndView();
+        logger.info("添加用户信息:"+user.getUsername());
+        logger.info("添加用户信息:"+user.getPassword());
+        userService.add(user);
         mav.setViewName("student_list");
         return mav;
     }

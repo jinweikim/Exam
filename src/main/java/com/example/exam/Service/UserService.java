@@ -10,7 +10,7 @@ public interface UserService {
     User getUserByName(String name);
     User getUserByGrade(int grade);
     public List<User> getUserList();
-    public int add(User user);
+    Integer add(User user);
     Integer deleteById(int id);
     Integer update(User user);
 }

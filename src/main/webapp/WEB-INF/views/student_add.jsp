@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: jin
   Date: 2018/6/26
-  Time: 9:50
+  Time: 15:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -28,13 +28,13 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form">
+    <form class="layui-form" action="/account/add" method="post">
         <div class="layui-form-item">
             <label for="L_id" class="layui-form-label">
                 <span class="x-red">*</span>学号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_id" value=${user.id} name="id" required=""
+                <input type="text" id="L_id" name="id" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <span class="x-red">*</span>姓名
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_username" value=${user.username} name="username" required=""
+                <input type="text" id="L_username" name="username" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <span class="x-red">*</span>密码
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_password" value=${user.password} name="password" required=""
+                <input type="text" id="L_password" name="password" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <span class="x-red">*</span>分数
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_grade" value=${user.grade} name="grade" required="" lay-verify="repass"
+                <input type="text" id="L_grade" name="grade" required="" lay-verify="repass"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -70,15 +70,15 @@
                 <span class="x-red">*</span>班级
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_userClass" value=${user.userClass} name="userClass" required="" lay-verify="repass"
+                <input type="text" id="L_userClass"  name="userClass" required="" lay-verify="repass"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" >
+            <label class="layui-form-label">
             </label>
-            <button class="layui-btn" lay-filter="add" lay-submit="">
+            <button class="layui-btn" type="submit">
                 增加
             </button>
         </div>
@@ -105,38 +105,21 @@
             }
         });
 
-        // $("#update_btn").click(function () {
-        //     $.post("/account/update",
-        //         $('#accountUpdate').serialize(),
-        //         function (data) {
-        //         layer.alert("增加成功", {icon: 6}, function () {
-        //             // 获得frame索引
-        //             var index = parent.layer.getFrameIndex(window.name);
-        //             //关闭当前frame
-        //             parent.layer.close(index);
-        //         });
+        //监听提交
+        // form.on('submit(add)', function(data){
+        //     console.log(data);
+        //     //发异步，把数据提交给php
+        //     layer.alert("增加成功", {icon: 6},function () {
+        //         // 获得frame索引
+        //         var index = parent.layer.getFrameIndex(window.name);
+        //         //关闭当前frame
+        //         parent.layer.close(index);
         //     });
+        //     return false;
         // });
 
 
-        //监听提交
-        form.on('submit(add)', function (data) {
-            $.post("/account/update",
-                data.field,
-                function (response) {
-                    layer.alert("增加成功", {icon: 6}, function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    }
-                ,'json');
-            });
-            return false;
-        });
     });
-
-
 </script>
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");
