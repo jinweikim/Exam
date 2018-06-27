@@ -5,6 +5,8 @@ import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.Service.AccountService;
 import com.example.exam.Service.UserService;
 import com.example.exam.Service.UserServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,12 +66,13 @@ public class AccountController {
     @RequestMapping("/student_list")
     public ModelAndView getStudentList(HttpServletRequest request){
         ArrayList<User> studentList = new ArrayList<>();
-
-        studentList = (ArrayList)userService.getUserList();
+        PageHelper.startPage(1,10);
+        studentList = (ArrayList)userService.getUserListPage(2,2);
+        PageInfo<User> pageInfo = new PageInfo<User>(studentList);
         logger.info(""+studentList.size());
         logger.info(studentList.get(0).getUsername());
         ModelAndView mav = new ModelAndView();
-        mav.addObject("studentList",studentList);
+        mav.addObject("studentList",pageInfo);
         mav.setViewName("student_list");
         return mav;
     }
@@ -81,6 +84,15 @@ public class AccountController {
         mav.addObject("user",user);
         mav.setViewName("student_edit");
         return mav;
+    }
+
+    @RequestMapping(value = "/student_delete/{id}")
+    public ModelAndView StudentDelete(@PathVariable String id){
+        userService.deleteById(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("student_edit");
+        return mav;
+
     }
 
     @RequestMapping("/student_add")
@@ -109,10 +121,6 @@ public class AccountController {
         mav.setViewName("student_list");
         return mav;
     }
-
-
-
-
 
 
 }

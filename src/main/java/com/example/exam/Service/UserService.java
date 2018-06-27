@@ -9,8 +9,9 @@ public interface UserService {
     User getUserById(String id);
     User getUserByName(String name);
     User getUserByGrade(int grade);
-    public List<User> getUserList();
+    List<User> getUserList();
+    List<User> getUserListPage(int page,int rows);
     Integer add(User user);
-    Integer deleteById(int id);
+    Integer deleteById(String id);
     Integer update(User user);
 }

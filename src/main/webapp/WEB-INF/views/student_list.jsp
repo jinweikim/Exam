@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
+    <title>欢迎来到在线考试系统管理区</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -30,12 +30,6 @@
 
 <body class="layui-anim layui-anim-up">
 <div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
@@ -51,7 +45,7 @@
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据:${studentList.total}条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -68,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${studentList}" var="s">
+        <c:forEach items="${studentList.list}" var="s">
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
@@ -85,8 +79,8 @@
                 <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                 </a>
-                <a title="删除" onclick="x_admin_show('删除','member-password.html',600,400)"  href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini">删除</span>
+                <a title="删除" onclick="x_admin_show('删除','student_delete/'+${s.id},600,400) " href="javascript:;">
+                    <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
                 </a>
             </td>
         </tr>

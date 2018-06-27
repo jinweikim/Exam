@@ -55,7 +55,7 @@ public interface UserMapper {
 //    @Insert("INSERT INTO UserInfo(user_id,user_name,user_password,user_grade,user_class) VALUES(#{id},#{username},#{password},#{grade},#{userClass})")
     Integer add(User user);
 
-    Integer deleteById(int id);
+    Integer deleteById(String id);
 
     Integer update(User user);
 

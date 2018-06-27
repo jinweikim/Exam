@@ -3,6 +3,7 @@ package com.example.exam.Service;
 import com.example.exam.Entity.User;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.dao.UserMapper;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Integer deleteById(int id) {
+    public Integer deleteById(String id) {
         return userMapper.deleteById(id);
     }
 
@@ -54,5 +55,11 @@ public class UserServiceImpl implements UserService{
     public Integer update(User user) {
         logger.info("Updating");
         return userMapper.update(user);
+    }
+
+    @Override
+    public List<User> getUserListPage(int page,int rows) {
+        PageHelper.startPage(page,rows);
+        return userMapper.getUserList();
     }
 }
