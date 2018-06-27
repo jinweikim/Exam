@@ -1,5 +1,6 @@
 package com.example.exam.Controller;
 
+import com.example.exam.Entity.ResultCode;
 import com.example.exam.Entity.User;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.Service.AccountService;
@@ -66,8 +67,9 @@ public class AccountController {
     @RequestMapping("/student_list")
     public ModelAndView getStudentList(HttpServletRequest request){
         ArrayList<User> studentList = new ArrayList<>();
-        PageHelper.startPage(1,10);
-        studentList = (ArrayList)userService.getUserListPage(2,2);
+        //PageHelper.startPage(1,10);
+        int num = Integer.parseInt(request.getParameter("p"));
+        studentList = (ArrayList)userService.getUserListPage(num,10);
         PageInfo<User> pageInfo = new PageInfo<User>(studentList);
         logger.info(""+studentList.size());
         logger.info(studentList.get(0).getUsername());
@@ -103,23 +105,35 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public ModelAndView UserUpdate(User user){
-        ModelAndView mav = new ModelAndView();
+    public @ResponseBody ResultCode UserUpdate(User user){
         logger.info("更改用户信息:"+user.getUsername());
         logger.info("更改用户信息:"+user.getPassword());
-        userService.update(user);
-        mav.setViewName("student_list");
-        return mav;
+        Integer result = userService.update(user);
+        logger.info("result:"+result);
+        ResultCode resultCode = new ResultCode();
+        if(result != 0){
+            resultCode.setStatus("success");
+        }else {
+            resultCode.setStatus("failed");
+        }
+        return resultCode;
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public ModelAndView UserAdd(User user){
+    public @ResponseBody ResultCode UserAdd(User user){
         ModelAndView mav = new ModelAndView();
         logger.info("添加用户信息:"+user.getUsername());
         logger.info("添加用户信息:"+user.getPassword());
         userService.add(user);
-        mav.setViewName("student_list");
-        return mav;
+        int result = userService.update(user);
+        logger.info("更改结果:"+result);
+        ResultCode resultCode = new ResultCode();
+        if(result != 0){
+            resultCode.setStatus("success");
+        }else {
+            resultCode.setStatus("failed");
+        }
+        return resultCode;
     }
 
 

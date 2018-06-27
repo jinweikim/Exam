@@ -67,7 +67,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="student_list">
+                        <a _href="student_list?p=1">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考生列表</cite>
 
