@@ -45,7 +45,7 @@
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:${studentList.total}条</span>
+        <span class="x-right" style="line-height:40px">共有数据:条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -62,24 +62,26 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${studentList.list}" var="s">
+        <c:forEach items="${optList}" var="o">
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
 
-                <td>${s.id}</td>
-                <td>${s.username}</td>
-                <td>${s.password}</td>
-                <td>${s.grade}</td>
-                <td>${s.userClass}</td>
+                <td>${o.que_id}</td>
+                <td>${o.que_head}</td>
+                <td>${o.que_ans}</td>
+                <td>${o.que_opt_a}</td>
+                <td>${o.que_opt_b}</td>
+                <td>${o.que_opt_c}</td>
+                <td>${o.que_opt_d}</td>
             <%--<td class="td-status">--%>
                 <%--</td>--%>
             <td class="td-manage">
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
+                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${o.que_id},600,400)" href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                 </a>
-                <a title="删除" onclick="x_admin_show('删除','student_delete/'+${s.id},600,400) " href="javascript:;">
+                <a title="删除" onclick="x_admin_show('删除','student_delete/'+${o.que_id},600,400) " href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
                 </a>
             </td>
@@ -87,16 +89,16 @@
         </c:forEach>
         </tbody>
     </table>
-    <div class="page">
-        <div>
-            <a class="prev" href="student_list?p=${studentList.prePage}">&lt;&lt;</a>
-            <a class="num" href="student_list?p=${studentList.prePage}">${studentList.prePage}</a>
-            <a class="current" href="student_list?p=${studentList.pageNum}">${studentList.pageNum}</a>
-            <a class="num" href="student_list?p=${studentList.nextPage}">${studentList.nextPage}</a>
-            <a class="num" href="student_list?p=${studentList.lastPage}">最后一页</a>
-            <a class="next" href="student_list?p=${studentList.nextPage}">&gt;&gt;</a>
-        </div>
-    </div>
+    <%--<div class="page">--%>
+        <%--<div>--%>
+            <%--<a class="prev" href="student_list?p=${studentList.prePage}">&lt;&lt;</a>--%>
+            <%--<a class="num" href="student_list?p=${studentList.prePage}">${studentList.prePage}</a>--%>
+            <%--<a class="current" href="student_list?p=${studentList.pageNum}">${studentList.pageNum}</a>--%>
+            <%--<a class="num" href="student_list?p=${studentList.nextPage}">${studentList.nextPage}</a>--%>
+            <%--<a class="num" href="student_list?p=${studentList.lastPage}">最后一页</a>--%>
+            <%--<a class="next" href="student_list?p=${studentList.nextPage}">&gt;&gt;</a>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 
 </div>
 <script>

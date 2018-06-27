@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.exam.dao.OptMapper">
+    <resultMap id="OptResultMap" type="com.example.exam.Entity.OptionalQuestions">
+        <id column="que_id" property="que_id" jdbcType="INTEGER"/>
+        <result column = "que_head" property = "que_head" />
+        <result column = "que_ans" property = "que_ans"/>
+        <result column="que_opt_a" property="que_opt_a"/>
+        <result column = "que_opt_b" property = "que_opt_b" />
+        <result column = "que_opt_c" property = "que_opt_c" />
+        <result column = "que_opt_d" property = "que_opt_d" />
+        <result column = "que_opt_e" property = "que_opt_e" />
+    </resultMap>
+
+    <sql id="Opt_Column_List">
+        que_id,que_head,que_ans,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e
+    </sql>
+
+
+
+    <select id="getOptList" resultMap="OptResultMap">
+        SELECT
+        <include refid="Opt_Column_List"/>
+        FROM OptionalQuestions
+    </select>
+
+    <insert id="add" parameterType="com.example.exam.Entity.User">
+        INSERT INTO
+        UserInfo
+        (user_id,user_name,user_password,user_grade,user_class)
+        VALUES
+        (#{id},#{username},#{password},#{grade},#{userClass})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM
+        UserInfo
+        WHERE
+        user_id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.example.exam.Entity.User">
+        UPDATE
+        UserInfo
+        SET
+        user_name=#{username},
+        user_password=#{password},
+        user_grade=#{grade},
+        user_class=#{userClass}
+        WHERE
+        user_id = #{id}
+    </update>
+</mapper>

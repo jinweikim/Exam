@@ -46,8 +46,8 @@ public class AccountController {
 //        user.setUsername(request.getParameter("name"));
 //        user.setPassword(request.getParameter("password"));
         //       userService.add(user);
-        User user1 = userService.getUserById("1500");
-        logger.info(user1.getUsername());
+//        User user1 = userService.getUserById("1500");
+//        logger.info(user1.getUsername());
         if(accountService.valid(user)){
             request.getSession().setAttribute("_session_user",user);
             logger.info("登录成功");
@@ -79,6 +79,8 @@ public class AccountController {
         return mav;
     }
 
+
+
     @RequestMapping("/student_edit/{id}")
     public ModelAndView studentEdit(@PathVariable String id){
         User user = userService.getUserById(id);
@@ -108,9 +110,15 @@ public class AccountController {
     public @ResponseBody ResultCode UserUpdate(User user){
         logger.info("更改用户信息:"+user.getUsername());
         logger.info("更改用户信息:"+user.getPassword());
-        Integer result = userService.update(user);
-        logger.info("result:"+result);
         ResultCode resultCode = new ResultCode();
+        Integer result = 0;
+        try{
+            result = userService.update(user);
+        }catch (Exception e){
+            logger.info("Exception!!!");
+            resultCode.setStatus("failed");
+        }
+        logger.info("result:"+result);
         if(result != 0){
             resultCode.setStatus("success");
         }else {
@@ -121,13 +129,17 @@ public class AccountController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public @ResponseBody ResultCode UserAdd(User user){
-        ModelAndView mav = new ModelAndView();
+        ResultCode resultCode = new ResultCode();
         logger.info("添加用户信息:"+user.getUsername());
         logger.info("添加用户信息:"+user.getPassword());
-        userService.add(user);
-        int result = userService.update(user);
+        Integer result = 0;
+        try{
+            result = userService.add(user);
+        }catch (Exception e){
+            logger.info("Exception!!!");
+            resultCode.setStatus("failed");
+        }
         logger.info("更改结果:"+result);
-        ResultCode resultCode = new ResultCode();
         if(result != 0){
             resultCode.setStatus("success");
         }else {

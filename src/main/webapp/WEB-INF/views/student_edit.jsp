@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>考生信息编辑</title>
+    <title>欢迎页面-X-admin2.0</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -34,8 +34,8 @@
                 <span class="x-red">*</span>学号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_id" value=${user.id} name="id" required=""
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="L_id" value=${user.id} name="id" readonly required=""
+                       autocomplete="off" class="layui-input" style="background-color:lightgrey;color:grey">
             </div>
         </div>
         <div class="layui-form-item">
@@ -79,7 +79,7 @@
             <label class="layui-form-label" >
             </label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+                更改
             </button>
         </div>
     </form>
@@ -124,13 +124,18 @@
             $.post("/account/update",
                 data.field,
                 function (response) {
-                    layer.alert("增加成功", {icon: 6}, function () {
+                    var message;
+                    if(response.status!=null&&response.status=='success')message="编辑成功";
+                    else message="编辑失败";
+                    var latterOperation=function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
+
                         //关闭当前frame
+                        window.parent.location.reload();
                         parent.layer.close(index);
-                    }
-                ,'json');
+                    };
+                    layer.alert(message, {icon: 6}, latterOperation,'json');
             });
             return false;
         });

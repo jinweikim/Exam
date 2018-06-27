@@ -9,8 +9,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加考生</title>
-    <meta name="rendere《r" content="webkit">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -28,7 +28,7 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form" action="/account/add" method="post">
+    <form class="layui-form">
         <div class="layui-form-item">
             <label for="L_id" class="layui-form-label">
                 <span class="x-red">*</span>学号
@@ -78,7 +78,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">
             </label>
-            <button class="layui-btn" type="submit">
+            <button class="layui-btn" lay-filter="add" lay-submit="">
                 增加
             </button>
         </div>
@@ -106,17 +106,25 @@
         });
 
         //监听提交
-        // form.on('submit(add)', function(data){
-        //     console.log(data);
-        //     //发异步，把数据提交给php
-        //     layer.alert("增加成功", {icon: 6},function () {
-        //         // 获得frame索引
-        //         var index = parent.layer.getFrameIndex(window.name);
-        //         //关闭当前frame
-        //         parent.layer.close(index);
-        //     });
-        //     return false;
-        // });
+        form.on('submit(add)', function (data) {
+            $.post("/account/add",
+                data.field,
+                function (response) {
+                    var message;
+                    if(response.status!=null&&response.status=='success')message="增加成功";
+                    else message="增加失败";
+                    var latterOperation=function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+
+                        //关闭当前frame
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    };
+                    layer.alert(message, {icon: 6}, latterOperation,'json');
+                });
+            return false;
+        });
 
 
     });
