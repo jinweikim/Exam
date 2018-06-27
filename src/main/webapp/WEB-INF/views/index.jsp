@@ -26,7 +26,7 @@
 <body>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="/index.html">在线考试系统后台</a></div>
+    <div class="logo"><a href="/index.html">在线考试系统</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
@@ -85,7 +85,13 @@
                     <li>
                         <a _href="/question/OptQueList">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>试题列表</cite>
+                            <cite>选择题列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/question/OptQueList">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>填空题列表</cite>
                         </a>
                     </li >
                 </ul>

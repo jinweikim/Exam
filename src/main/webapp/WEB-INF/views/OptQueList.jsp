@@ -44,8 +44,8 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','opt_add',600,400)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据:${optList.total}条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -53,52 +53,45 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>ID</th>
-            <th>用户名</th>
-            <th>密码</th>
-            <th>分数</th>
-            <th>班级</th>
-            <th>操作</th>
+            <th>题号</th>
+            <th width="70%">题目</th>
+            <th>答案</th>
+            <th >操作</th>
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${optList}" var="o">
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+        <c:forEach items="${optList.list}" var="o">
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
+                            class="layui-icon">&#xe605;</i></div>
+                </td>
 
                 <td>${o.que_id}</td>
-                <td>${o.que_head}</td>
+                <td>题干：${o.que_head} <br /> A.${o.que_opt_a} <br /> B.${o.que_opt_b} <br /> C.${o.que_opt_c} <br /> D.${o.que_opt_d}</td>
                 <td>${o.que_ans}</td>
-                <td>${o.que_opt_a}</td>
-                <td>${o.que_opt_b}</td>
-                <td>${o.que_opt_c}</td>
-                <td>${o.que_opt_d}</td>
-            <%--<td class="td-status">--%>
-                <%--</td>--%>
-            <td class="td-manage">
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${o.que_id},600,400)" href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
-                </a>
-                <a title="删除" onclick="x_admin_show('删除','student_delete/'+${o.que_id},600,400) " href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
-                </a>
-            </td>
-        </tr>
+                <td class="td-manage" align="center">
+                    <a title="编辑" onclick="x_admin_show('编辑','opt_edit/'+${o.que_id},600,400)" href="javascript:;">
+                        <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
+                    </a>
+                    <a title="删除" onclick="x_admin_show('删除','opt_delete/'+${o.que_id},600,400) " href="javascript:;">
+                        <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
+                    </a>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>
-    <%--<div class="page">--%>
-        <%--<div>--%>
-            <%--<a class="prev" href="student_list?p=${studentList.prePage}">&lt;&lt;</a>--%>
-            <%--<a class="num" href="student_list?p=${studentList.prePage}">${studentList.prePage}</a>--%>
-            <%--<a class="current" href="student_list?p=${studentList.pageNum}">${studentList.pageNum}</a>--%>
-            <%--<a class="num" href="student_list?p=${studentList.nextPage}">${studentList.nextPage}</a>--%>
-            <%--<a class="num" href="student_list?p=${studentList.lastPage}">最后一页</a>--%>
-            <%--<a class="next" href="student_list?p=${studentList.nextPage}">&gt;&gt;</a>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+    <div class="page">
+        <div>
+            <a class="prev" href="OptQueList?p=${optList.prePage}">&lt;&lt;</a>
+            <a class="num" href="OptQueList?p=${optList.prePage}">${studentList.prePage}</a>
+            <a class="current" href="OptQueList?p=${optList.pageNum}">${studentList.pageNum}</a>
+            <a class="num" href="OptQueList?p=${optList.nextPage}">${studentList.nextPage}</a>
+            <a class="num" href="OptQueList?p=${opttList.lastPage}">最后一页</a>
+            <a class="next" href="OptQueList?p=${optList.nextPage}">&gt;&gt;</a>
+        </div>
+    </div>
 
 </div>
 <script>

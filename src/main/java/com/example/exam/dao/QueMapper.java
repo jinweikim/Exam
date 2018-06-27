@@ -1,17 +1,14 @@
-package com.example.exam.Service;
+package com.example.exam.dao;
 
-import com.example.exam.Entity.BlankQuestions;
-import com.example.exam.Entity.OptionalQuestions;
 import com.example.exam.Entity.Questions;
 
 import java.util.List;
 
+public interface QueMapper {
 
-public interface QueService {
+    List<Questions> getOptList();
 
-    List<Questions> getOptList(int page,int rows);
-
-    List<Questions> getBlankList(int page,int rows);
+    List<Questions> getBlankList();
 
     Integer addOpt(Questions que);
 

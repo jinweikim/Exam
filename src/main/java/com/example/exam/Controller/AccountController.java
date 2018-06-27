@@ -91,11 +91,20 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/student_delete/{id}")
-    public ModelAndView StudentDelete(@PathVariable String id){
-        userService.deleteById(id);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("student_edit");
-        return mav;
+    public @ResponseBody ResultCode StudentDelete(@PathVariable String id){
+        ResultCode resultCode = new ResultCode();
+        int result = 0;
+        try{
+            result = userService.deleteById(id);
+        }catch (Exception e){
+            resultCode.setStatus("failed");
+        }
+        if(result != 0){
+            resultCode.setStatus("success");
+        }else{
+            resultCode.setStatus("failed");
+        }
+        return resultCode;
 
     }
 

@@ -1,10 +1,10 @@
 package com.example.exam.Entity;
 
-public class BlankQuestions {
+public class BlankQuestions extends Questions{
 
-    private int que_id;
-    private String que_head;
-    private String que_ans;
+//    private int que_id;
+//    private String que_head;
+//    private String que_ans;
 
     public int getQue_id() {
         return que_id;

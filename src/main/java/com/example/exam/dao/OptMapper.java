@@ -8,5 +8,12 @@ public interface OptMapper {
 
     List<OptionalQuestions> getOptList();
 
+    Integer add(OptionalQuestions opt);
+
+    Integer deleteById(Integer id);
+
+    Integer update(OptionalQuestions opt);
+
+    OptionalQuestions getUserById(String id);
 
 }

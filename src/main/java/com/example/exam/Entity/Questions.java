@@ -1,12 +1,11 @@
 package com.example.exam.Entity;
 
-import com.example.exam.Service.QueService;
+public class Questions {
 
-public class OptionalQuestions extends Questions {
-
-//    private int que_id;
-//    private String que_head;
-//    private String que_ans;
+    public int que_id;
+    public String que_head;
+    public String que_ans;
+    private String que_type;
     private String que_opt_a;
     private String que_opt_b;
     private String que_opt_c;
@@ -35,6 +34,14 @@ public class OptionalQuestions extends Questions {
 
     public void setQue_ans(String que_ans) {
         this.que_ans = que_ans;
+    }
+
+    public String getQue_typeType() {
+        return que_type;
+    }
+
+    public void setQue_Type(String que_type) {
+        this.que_type = que_type;
     }
 
     public String getQue_opt_a() {

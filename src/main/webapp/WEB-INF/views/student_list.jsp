@@ -53,11 +53,11 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>ID</th>
-            <th>用户名</th>
-            <th>密码</th>
-            <th>分数</th>
-            <th>班级</th>
+            <th style="width: 15%;">ID</th>
+            <th style="width: 16%;">用户名</th>
+            <th style="width: 20%;">密码</th>
+            <th style="width: 10%;">分数</th>
+            <th style="width: 15%;">班级</th>
             <th>操作</th>
             </tr>
         </thead>
@@ -75,11 +75,11 @@
                 <td>${s.userClass}</td>
             <%--<td class="td-status">--%>
                 <%--</td>--%>
-            <td class="td-manage">
+            <td class="td-manage" align="center">
                 <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                 </a>
-                <a title="删除" onclick="x_admin_show('删除','student_delete/'+${s.id},600,400) " href="javascript:;">
+                <a title="删除" onclick="member_del(this,${s.id})" href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
                 </a>
             </td>
@@ -89,12 +89,11 @@
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="student_list?p=${studentList.prePage}">&lt;&lt;</a>
-            <a class="num" href="student_list?p=${studentList.prePage}">${studentList.prePage}</a>
-            <a class="current" href="student_list?p=${studentList.pageNum}">${studentList.pageNum}</a>
-            <a class="num" href="student_list?p=${studentList.nextPage}">${studentList.nextPage}</a>
-            <a class="num" href="student_list?p=${studentList.lastPage}">最后一页</a>
-            <a class="next" href="student_list?p=${studentList.nextPage}">&gt;&gt;</a>
+            <a class="num" href="student_list?p=${studentList.firstPage}">首页</a>
+            <a class="num" href="student_list?p=${studentList.prePage}">前页</a>
+            <b class="current">第${studentList.pageNum}页</b>
+            <a class="num" href="student_list?p=${studentList.nextPage}">后页</a>
+            <a class="num" href="student_list?p=${studentList.lastPage}">尾页</a>
         </div>
     </div>
 
@@ -139,11 +138,26 @@
     }
 
     /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                type: "get",
+                url: "/account/student_delete/"+id,
+                success: function (response) {
+                    if (response.status != null && response.status == 'success') {
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    }
+                    else {
+                        layer.msg('删除失败!', {icon: 1, time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg('删除失败!', {icon: 1, time: 1000});
+                }
+            });
         });
     }
 

@@ -105,24 +105,15 @@
             }
         });
 
-
         //监听提交
         form.on('submit(add)', function (data) {
-            $.ajax({
-                type: "post",
-                url: "/account/add",
-                data: data.field,
-                success: function (response) {
-                    var message, iconNumber;
-                    if (response.status != null && response.status == 'success') {
-                        message = "增加成功";
-                        iconNumber = 6;
-                    }
-                    else {
-                        message = "增加失败";
-                        iconNumber = 5;
-                    }
-                    var latterOperation = function () {
+            $.post("/account/add",
+                data.field,
+                function (response) {
+                    var message;
+                    if(response.status!=null&&response.status=='success')message="增加成功";
+                    else message="增加失败";
+                    var latterOperation=function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
 
@@ -130,21 +121,8 @@
                         window.parent.location.reload();
                         parent.layer.close(index);
                     };
-                    layer.alert(message, {icon: iconNumber}, latterOperation);
-                },
-                error: function () {
-                    var message = "增加失败";
-                    var latterOperation = function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-
-                        //关闭当前frame
-                        window.parent.location.reload();
-                        parent.layer.close(index);
-                    };
-                    layer.alert(message, {icon: 5}, latterOperation);
-                }
-            });
+                    layer.alert(message, {icon: 6}, latterOperation,'json');
+                });
             return false;
         });
 

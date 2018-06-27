@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: jin
   Date: 2018/6/26
-  Time: 15:17
+  Time: 9:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -34,8 +34,8 @@
                 <span class="x-red">*</span>学号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_id" name="id" required=""
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="L_id" value=${user.id} name="id" readonly required=""
+                       autocomplete="off" class="layui-input" style="background-color:lightgrey;color:grey">
             </div>
         </div>
         <div class="layui-form-item">
@@ -43,7 +43,7 @@
                 <span class="x-red">*</span>姓名
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_username" name="username" required=""
+                <input type="text" id="L_username" value=${user.username} name="username" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <span class="x-red">*</span>密码
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_password" name="password" required=""
+                <input type="text" id="L_password" value=${user.password} name="password" required=""
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <span class="x-red">*</span>分数
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_grade" name="grade" required="" lay-verify="repass"
+                <input type="text" id="L_grade" value=${user.grade} name="grade" required="" lay-verify="repass"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -70,16 +70,16 @@
                 <span class="x-red">*</span>班级
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_userClass"  name="userClass" required="" lay-verify="repass"
+                <input type="text" id="L_userClass" value=${user.userClass} name="userClass" required="" lay-verify="repass"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">
+            <label class="layui-form-label" >
             </label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+                更改
             </button>
         </div>
     </form>
@@ -105,24 +105,29 @@
             }
         });
 
+        // $("#update_btn").click(function () {
+        //     $.post("/account/update",
+        //         $('#accountUpdate').serialize(),
+        //         function (data) {
+        //         layer.alert("增加成功", {icon: 6}, function () {
+        //             // 获得frame索引
+        //             var index = parent.layer.getFrameIndex(window.name);
+        //             //关闭当前frame
+        //             parent.layer.close(index);
+        //         });
+        //     });
+        // });
+
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.ajax({
-                type: "post",
-                url: "/account/add",
-                data: data.field,
-                success: function (response) {
-                    var message, iconNumber;
-                    if (response.status != null && response.status == 'success') {
-                        message = "增加成功";
-                        iconNumber = 6;
-                    }
-                    else {
-                        message = "增加失败";
-                        iconNumber = 5;
-                    }
-                    var latterOperation = function () {
+            $.post("/account/update",
+                data.field,
+                function (response) {
+                    var message;
+                    if(response.status!=null&&response.status=='success')message="编辑成功";
+                    else message="编辑失败";
+                    var latterOperation=function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
 
@@ -130,26 +135,13 @@
                         window.parent.location.reload();
                         parent.layer.close(index);
                     };
-                    layer.alert(message, {icon: iconNumber}, latterOperation);
-                },
-                error: function () {
-                    var message = "增加失败";
-                    var latterOperation = function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-
-                        //关闭当前frame
-                        window.parent.location.reload();
-                        parent.layer.close(index);
-                    };
-                    layer.alert(message, {icon: 5}, latterOperation);
-                }
+                    layer.alert(message, {icon: 6}, latterOperation,'json');
             });
             return false;
         });
-
-
     });
+
+
 </script>
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");
