@@ -44,8 +44,10 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','blank_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加题目','blank_add',600,400)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">条</span>
+        <span class="x-right" style="line-height:40px" id="total">${queList.total}</span>
+        <span class="x-right" style="line-height:40px">共有数据:</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -53,8 +55,7 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>题号</th>
-            <th width="70%">题目</th>
+            <th width="75%">题目</th>
             <th>答案</th>
             <th >操作</th>
             </tr>
@@ -67,14 +68,13 @@
                             class="layui-icon">&#xe605;</i></div>
                 </td>
 
-                <td>${q.que_id}</td>
                 <td>题干：${q.que_head} <br /> A.${q.que_opt_a} <br /> B.${q.que_opt_b} <br /> C.${q.que_opt_c} <br /> D.${q.que_opt_d}</td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
                     <a title="编辑" onclick="x_admin_show('编辑','blank_edit/'+${q.que_id},600,400)" href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                     </a>
-                    <a title="删除" onclick="x_admin_show('删除','delete/'+${q.que_id},600,400) " href="javascript:;">
+                    <a title="删除" onclick="member_del(this,${q.que_id})" href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
                     </a>
                 </td>
@@ -84,11 +84,11 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="BlankQueList?p=${BlankQueList.firstPage}">首页</a>
-            <a class="num" href="BlankQueList?p=${BlankQueList.prePage}">前页</a>
-            <b class="current">第${BlankQueList.pageNum}页</b>
-            <a class="num" href="BlankQueList?p=${BlankQueList.nextPage}">后页</a>
-            <a class="num" href="BlankQueList?p=${BlankQueList.lastPage}">尾页</a>
+            <a class="num" href="BlankQueList?p=${queList.firstPage}">首页</a>
+            <a class="num" href="BlankQueList?p=${queList.prePage}">前页</a>
+            <b class="current">第${queList.pageNum}页</b>
+            <a class="num" href="BlankQueList?p=${queList.nextPage}">后页</a>
+            <a class="num" href="BlankQueList?p=${queList.lastPage}">尾页</a>
         </div>
     </div>
 
@@ -132,12 +132,29 @@
         });
     }
 
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                type: "get",
+                url: "/question/delete/"+id,
+                success: function (response) {
+                    if (response.status != null && response.status == 'success') {
+                        $(obj).parents("tr").remove();
+                        var elem = $('#total');
+                        var last = elem.text();
+                        elem.text(last-1);
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    }
+                    else {
+                        layer.msg('删除失败!', {icon: 1, time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg('删除失败!', {icon: 1, time: 1000});
+                }
+            });
         });
     }
 

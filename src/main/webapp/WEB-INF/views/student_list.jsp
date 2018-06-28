@@ -45,7 +45,9 @@
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:${studentList.total}条</span>
+        <span class="x-right" style="line-height:40px">条</span>
+        <span class="x-right" style="line-height:40px" id="total">${studentList.total}</span>
+        <span class="x-right" style="line-height:40px">共有数据:</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -153,6 +155,9 @@
                 success: function (response) {
                     if (response.status != null && response.status == 'success') {
                         $(obj).parents("tr").remove();
+                        var elem = $('#total');
+                        var last = elem.text();
+                        elem.text(last-1);
                         layer.msg('已删除!', {icon: 1, time: 1000});
                     }
                     else {

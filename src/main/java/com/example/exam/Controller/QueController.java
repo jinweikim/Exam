@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -27,10 +28,11 @@ public class QueController {
 
     //打开选择题列表页面
     @RequestMapping("/OptQueList")
-    public ModelAndView getOptQueList(){
+    public ModelAndView getOptQueList(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         ArrayList<Questions> optList = new ArrayList<>();
-        optList = (ArrayList)queService.getOptList(1,10);
+        int num = Integer.parseInt(request.getParameter("p"));
+        optList = (ArrayList)queService.getOptList(num,10);
         logger.info("选择题列表大小:"+optList.size());
         PageInfo<Questions> pageInfo = new PageInfo<>(optList);
         mav.addObject("queList",pageInfo);
@@ -40,11 +42,12 @@ public class QueController {
 
     //打开填空题列表页面
     @RequestMapping("/BlankQueList")
-    public ModelAndView getBlankQueList(){
+    public ModelAndView getBlankQueList(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         ArrayList<Questions> blankList = new ArrayList<>();
-        blankList = (ArrayList)queService.getBlankList(1,10);
-        logger.info("选择题列表大小:"+blankList.size());
+        int num = Integer.parseInt(request.getParameter("p"));
+        blankList = (ArrayList)queService.getBlankList(num,10);
+        logger.info("填空列表大小:"+blankList.size());
         PageInfo<Questions> pageInfo = new PageInfo<>(blankList);
         mav.addObject("queList",pageInfo);
         mav.setViewName("BlankQueList");

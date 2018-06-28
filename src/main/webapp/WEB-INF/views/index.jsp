@@ -83,13 +83,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/question/OptQueList">
+                        <a _href="/question/OptQueList?p=1">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>选择题列表</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="/question/BlankQueList">
+                        <a _href="/question/BlankQueList?p=1">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>填空题列表</cite>
                         </a>

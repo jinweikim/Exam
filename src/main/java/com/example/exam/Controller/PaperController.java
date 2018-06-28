@@ -4,6 +4,7 @@ import com.example.exam.Entity.Paper;
 import com.example.exam.Entity.Questions;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.Service.QueService;
+import com.example.exam.Utils.QueUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,10 @@ public class PaperController {
         Paper papers1 = new Paper();
         Paper papers2 = new Paper();
         Paper papers3 = new Paper();
-        Questions que1 = queService.getOptById(1);
         Questions que2 = queService.getOptById(2);
         Questions que3 = queService.getBlankById(3);
-        logger.info(que1.que_head);
         ArrayList<Questions> queList = new ArrayList<>();
         ArrayList<Paper> paperList = new ArrayList<>();
-        queList.add(que1);
         queList.add(que2);
         queList.add(que3);
         paperList.add(papers1);
@@ -53,13 +51,23 @@ public class PaperController {
 
     @RequestMapping("/add")
     public ModelAndView PaperAdd(){
+        ArrayList<Questions> AllOptList = new ArrayList<>();
+        ArrayList<Questions> AllBlankList = new ArrayList<>();
         ArrayList<Questions> OptList = new ArrayList<>();
         ArrayList<Questions> BlankList = new ArrayList<>();
-        OptList = (ArrayList)queService.getOptList();
-        BlankList = (ArrayList)queService.getBlankList();
-
-
+        AllOptList = (ArrayList)queService.getOptList();
+        AllBlankList = (ArrayList)queService.getBlankList();
+        logger.info("Opt大小:"+AllOptList.size());
+        logger.info("Blank大小:"+AllBlankList.size());
+        OptList = QueUtils.getRandomList(AllOptList,3);//从选择题题库选择指定数目的题目
+        BlankList = QueUtils.getRandomList(AllBlankList,3);//从填空题题库选择指定数目的题目
+        logger.info("Opt大小:"+OptList.size());
+        logger.info("Blank大小:"+BlankList.size());
+        OptList.addAll(BlankList);//合并两个list
         ModelAndView mav = new ModelAndView();
+        mav.addObject("queList",OptList);
+        mav.setViewName("ChooseList");
+        logger.info("合并后大小:"+OptList.size());
         return mav;
 
     }
