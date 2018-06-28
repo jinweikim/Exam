@@ -52,12 +52,12 @@ public class QueServiceImpl implements QueService {
 
     @Override
     public Integer updateOpt(Questions que) {
-        return null;
+        return queMapper.updateOpt(que);
     }
 
     @Override
     public Integer updateBlank(Questions que) {
-        return null;
+        return queMapper.updateBlank(que);
     }
 
     @Override

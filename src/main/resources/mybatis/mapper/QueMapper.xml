@@ -79,12 +79,12 @@
         SET
         que_head=#{que_head},
         que_ans=#{que_ans},
-        que_type='opt'
+        que_type='opt',
         que_opt_a=#{que_opt_a},
         que_opt_b=#{que_opt_b},
         que_opt_c=#{que_opt_c},
         que_opt_d=#{que_opt_d},
-        que_opt_e=#{que_opt_e},
+        que_opt_e=#{que_opt_e}
         WHERE
         que_id=#{que_id}
     </update>

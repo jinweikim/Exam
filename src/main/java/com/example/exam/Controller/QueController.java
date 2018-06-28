@@ -59,20 +59,37 @@ public class QueController {
         return mav;
     }
 
+    //打开添加填空页面
+    @RequestMapping("/blank_add")
+    public ModelAndView BlankAdd(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("Blank_add");
+        return mav;
+    }
+
     //添加选择题信息
-    @RequestMapping(value = "/optAdd",method = RequestMethod.POST)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public @ResponseBody ResultCode OptQueAdd(Questions questions){
         ResultCode resultCode = new ResultCode();
         Integer result = 0;
-        try{
-            result = queService.addOpt(questions);
-        }catch (Exception e){
-            resultCode.setStatus("failed");
+        String type = questions.getQue_type();
+        if(type.equals("opt")){
+            try{
+                result = queService.addOpt(questions);
+            }catch (Exception e){
+                resultCode.setStatus("failed");
+            }
+        }else{
+            try{
+                result = queService.addBlank(questions);
+            }catch (Exception e){
+                resultCode.setStatus("failed");
+            }
         }
         if(result != 0){
             resultCode.setStatus("success");
         }else{
-            resultCode.setStatus("success");
+            resultCode.setStatus("failed");
         }
         logger.info("添加结果:"+resultCode.getStatus());
         return resultCode;
@@ -88,16 +105,34 @@ public class QueController {
         return mav;
     }
 
+    //打开选择题编辑页面
+    @RequestMapping("/blank_edit/{id}")
+    public ModelAndView BlankEdit(@PathVariable int id){
+        Questions que = queService.getBlankById(id);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("que",que);
+        mav.setViewName("Blank_edit");
+        return mav;
+    }
+
     //确定更新试题信息，此处把opt与blank的更新合并在同一个方法
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public @ResponseBody ResultCode QueUpdate(Questions questions){
         ResultCode resultCode = new ResultCode();
         Integer result = 0;
-        String type = questions.getQue_Type();
+        String type = questions.getQue_type();
+        String head = questions.getQue_head();
+        int id = questions.getQue_id();
+        logger.info("获取到的题目类型是:"+type);
+        logger.info("获取到的题目题干类型是:"+head);
+        logger.info("获取到的题目Id是:"+id);
+        logger.info(questions.toString());
         if(type.equals("opt")){
             try{
                 result= queService.updateOpt(questions);
             }catch (Exception e){
+                e.printStackTrace();
+                logger.info("更新有异常");
                 resultCode.setStatus("failed");
             }
         }else{
@@ -107,6 +142,7 @@ public class QueController {
                 resultCode.setStatus("failed");
             }
         }
+        logger.info(result.toString());
         if(result != 0){
             resultCode.setStatus("success");
         }else{

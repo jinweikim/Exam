@@ -68,7 +68,13 @@
                 </td>
 
                 <td>${q.que_id}</td>
-                <td>题干：${q.que_head} <br /> A.${q.que_opt_a} <br /> B.${q.que_opt_b} <br /> C.${q.que_opt_c} <br /> D.${q.que_opt_d}</td>
+                <td>题干：${q.que_head} <br />
+                    A.${q.que_opt_a} <br />
+                    B.${q.que_opt_b} <br />
+                    C.${q.que_opt_c} <br />
+                    D.${q.que_opt_d}<br/>
+                    <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
                     <a title="编辑" onclick="x_admin_show('编辑','opt_edit/'+${q.que_id},600,400)" href="javascript:;">

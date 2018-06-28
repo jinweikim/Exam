@@ -45,7 +45,7 @@
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:${paperList.size}条</span>
+        <span class="x-right" style="line-height:40px">共有数据:条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -62,24 +62,24 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${paperList.list}" var="p">
+        <c:forEach items="${paperList}" var="p">
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
 
-                <td>${p.que_id}</td>
-                <td>${p.que_head}</td>
-                <td>${p.que_ans}</td>
+                <td>${p.name}</td>
+                <td>${p.group}</td>
+                <td>${p.size}</td>
             <%--<td class="td-status">--%>
                 <%--</td>--%>
             <td class="td-manage" align="center">
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${p.que_id},600,400)" href="javascript:;">
+                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/',600,400)" href="javascript:;">
                     <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                 </a>
-                <a title="删除" onclick="member_del(this,${p.que_id})" href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
-                </a>
+                <%--<a title="删除" onclick="member_del(this,${p.que_id})" href="javascript:;">--%>
+                    <%--<span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>--%>
+                <%--</a>--%>
             </td>
         </tr>
         </c:forEach>

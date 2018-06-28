@@ -9,11 +9,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
+    <title>${que.que_id}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -30,53 +31,71 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
-            <label for="L_id" class="layui-form-label">
-                <span class="x-red">*</span>学号
+            <label for="L_que_head" class="layui-form-label">
+                <span class="x-red">*</span>题干
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_id" value=${user.id} name="id" readonly required=""
-                       autocomplete="off" class="layui-input" style="background-color:lightgrey;color:grey">
+                <textarea id="L_que_head" name="que_head" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_head}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_username" class="layui-form-label">
-                <span class="x-red">*</span>姓名
+            <label for="L_que_opt_a" class="layui-form-label">
+                <span class="x-red">*</span>A选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_username" value=${user.username} name="username" required=""
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_a" name="que_opt_a" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_opt_a}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_password" class="layui-form-label">
-                <span class="x-red">*</span>密码
+            <label for="L_que_opt_b" class="layui-form-label">
+                <span class="x-red">*</span>B选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_password" value=${user.password} name="password" required=""
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_b" name="que_opt_b" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_opt_b}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_grade" class="layui-form-label">
-                <span class="x-red">*</span>分数
+            <label for="L_que_opt_c" class="layui-form-label">
+                <span class="x-red">*</span>C选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_grade" value=${user.grade} name="grade" required="" lay-verify="repass"
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_c" name="que_opt_c" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_opt_c}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_userClass" class="layui-form-label">
-                <span class="x-red">*</span>班级
+            <label for="L_que_opt_d" class="layui-form-label">
+                <span class="x-red">*</span>D选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_userClass" value=${user.userClass} name="userClass" required="" lay-verify="repass"
+                <textarea id="L_que_opt_d" name="que_opt_d" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_opt_d}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_que_opt_e" class="layui-form-label">
+                <span class="x-red">*</span>E选项
+            </label>
+            <div class="layui-input-inline">
+                <textarea id="L_que_opt_e" name="que_opt_e" required=""
+                          autocomplete="off" class="layui-textarea">${que.que_opt_e}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_que_ans" class="layui-form-label">
+                <span class="x-red">*</span>答案
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_que_ans" value="${que.que_ans}" name="que_ans"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" >
+            <label class="layui-form-label">
             </label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
                 更改
@@ -90,20 +109,6 @@
         var form = layui.form
             ,layer = layui.layer;
 
-        //自定义验证规则
-        form.verify({
-            nikename: function(value){
-                if(value.length < 5){
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,repass: function(value){
-                if($('#L_pass').val()!=$('#L_repass').val()){
-                    return '两次密码不一致';
-                }
-            }
-        });
 
         // $("#update_btn").click(function () {
         //     $.post("/account/update",
@@ -121,13 +126,32 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.post("/account/update",
-                data.field,
-                function (response) {
-                    var message;
-                    if(response.status!=null&&response.status=='success')message="编辑成功";
-                    else message="编辑失败";
-                    var latterOperation=function () {
+            $.ajax({
+                type: "post",
+                url: "/question/update",
+                data:
+            {
+                    que_id: document.title,
+                    que_type: 'opt',
+                    que_head: data.field.que_head,
+                    que_opt_a: data.field.que_opt_a,
+                    que_opt_b: data.field.que_opt_b,
+                    que_opt_c: data.field.que_opt_c,
+                    que_opt_d: data.field.que_opt_d,
+                    que_opt_e: data.field.que_opt_e,
+                    que_ans: data.field.que_ans
+                },
+                success: function (response) {
+                    var message, iconNumber;
+                    if (response.status != null && response.status == 'success') {
+                        message = "更新成功";
+                        iconNumber = 6;
+                    }
+                    else {
+                        message = "更新失败";
+                        iconNumber = 5;
+                    }
+                    var latterOperation = function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
 
@@ -135,10 +159,25 @@
                         window.parent.location.reload();
                         parent.layer.close(index);
                     };
-                    layer.alert(message, {icon: 6}, latterOperation,'json');
+                    layer.alert(message, {icon: iconNumber}, latterOperation);
+                },
+                error: function () {
+                    var message = "更新失败";
+                    var latterOperation = function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+
+                        //关闭当前frame
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    };
+                    layer.alert(message, {icon: 5}, latterOperation);
+                }
             });
             return false;
         });
+
+
     });
 
 

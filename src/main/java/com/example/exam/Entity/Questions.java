@@ -36,11 +36,11 @@ public class Questions {
         this.que_ans = que_ans;
     }
 
-    public String getQue_Type() {
+    public String getQue_type() {
         return que_type;
     }
 
-    public void setQue_Type(String que_type) {
+    public void setQue_type(String que_type) {
         this.que_type = que_type;
     }
 
@@ -82,5 +82,10 @@ public class Questions {
 
     public void setQue_opt_e(String que_opt_e) {
         this.que_opt_e = que_opt_e;
+    }
+
+    @Override
+    public String toString() {
+        return que_id + " "+ que_head +" "+ que_type +" "+ que_opt_a+" "+ que_opt_b+" "+ que_opt_c+" "+ que_opt_d+" "+ que_opt_e;
     }
 }
