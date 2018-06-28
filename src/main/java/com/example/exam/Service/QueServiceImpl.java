@@ -34,18 +34,28 @@ public class QueServiceImpl implements QueService {
     }
 
     @Override
+    public List<Questions> getOptList() {
+        return queMapper.getOptList();
+    }
+
+    @Override
+    public List<Questions> getBlankList() {
+        return queMapper.getBlankList();
+    }
+
+    @Override
     public Integer addOpt(Questions que) {
-        return null;
+        return queMapper.addOpt(que);
     }
 
     @Override
     public Integer addBlank(Questions que) {
-        return null;
+        return queMapper.addBlank(que);
     }
 
     @Override
     public Integer deleteById(Integer id) {
-        return null;
+        return queMapper.deleteById(id);
     }
 
 

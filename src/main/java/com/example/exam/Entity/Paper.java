@@ -3,14 +3,14 @@ package com.example.exam.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Papers {
+public class Paper{
 
     private String group;
     private ArrayList<Questions> list;
     private int size;
     private String name;
 
-    public Papers(){
+    public Paper(){
         list = new ArrayList<>();
         if(!list.isEmpty()){
             size = list.size();

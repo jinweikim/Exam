@@ -30,47 +30,65 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
-            <label for="L_id" class="layui-form-label">
-                <span class="x-red">*</span>学号
+            <label for="L_que_head" class="layui-form-label">
+                <span class="x-red">*</span>题干
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_id" name="id" required=""
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_head" name="que_head" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_username" class="layui-form-label">
-                <span class="x-red">*</span>姓名
+            <label for="L_que_opt_a" class="layui-form-label">
+                <span class="x-red">*</span>A选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_username" name="username" required=""
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_a" name="que_opt_a" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_password" class="layui-form-label">
-                <span class="x-red">*</span>密码
+            <label for="L_que_opt_b" class="layui-form-label">
+                <span class="x-red">*</span>B选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_password" name="password" required=""
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_b" name="que_opt_b" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_grade" class="layui-form-label">
-                <span class="x-red">*</span>分数
+            <label for="L_que_opt_c" class="layui-form-label">
+                <span class="x-red">*</span>C选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_grade" name="grade" required="" lay-verify="repass"
-                       autocomplete="off" class="layui-input">
+                <textarea id="L_que_opt_c" name="que_opt_c" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="L_userClass" class="layui-form-label">
-                <span class="x-red">*</span>班级
+            <label for="L_que_opt_d" class="layui-form-label">
+                <span class="x-red">*</span>D选项
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_userClass"  name="userClass" required="" lay-verify="repass"
+                <textarea id="L_que_opt_d" name="que_opt_d" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_que_opt_e" class="layui-form-label">
+                </span>E选项
+            </label>
+            <div class="layui-input-inline">
+                <textarea id="L_que_opt_e" name="que_opt_e" required=""
+                          autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_que_ans" class="layui-form-label">
+                <span class="x-red">*</span>答案
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_que_ans" value="" name="que_ans"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -79,7 +97,7 @@
             <label class="layui-form-label">
             </label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+                添加
             </button>
         </div>
     </form>
@@ -90,30 +108,33 @@
         var form = layui.form
             ,layer = layui.layer;
 
-        //自定义验证规则
-        form.verify({
-            nikename: function(value){
-                if(value.length < 5){
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,repass: function(value){
-                if($('#L_pass').val()!=$('#L_repass').val()){
-                    return '两次密码不一致';
-                }
-            }
-        });
-
         //监听提交
         form.on('submit(add)', function (data) {
-            $.post("/account/add",
-                data.field,
-                function (response) {
-                    var message;
-                    if(response.status!=null&&response.status=='success')message="增加成功";
-                    else message="增加失败";
-                    var latterOperation=function () {
+            $.ajax({
+                type: "post",
+                url: "/question/add",
+                data:
+                    {
+                        que_type: 'opt',
+                        que_head: data.field.que_head,
+                        que_opt_a: data.field.que_opt_a,
+                        que_opt_b: data.field.que_opt_b,
+                        que_opt_c: data.field.que_opt_c,
+                        que_opt_d: data.field.que_opt_d,
+                        que_opt_e: data.field.que_opt_e,
+                        que_ans: data.field.que_ans
+                    },
+                success: function (response) {
+                    var message, iconNumber;
+                    if (response.status != null && response.status == 'success') {
+                        message = "增加成功";
+                        iconNumber = 6;
+                    }
+                    else {
+                        message = "增加失败";
+                        iconNumber = 5;
+                    }
+                    var latterOperation = function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
 
@@ -121,10 +142,25 @@
                         window.parent.location.reload();
                         parent.layer.close(index);
                     };
-                    layer.alert(message, {icon: 6}, latterOperation,'json');
-                });
+                    layer.alert(message, {icon: iconNumber}, latterOperation);
+                },
+                error: function () {
+                    var message = "增加失败";
+                    var latterOperation = function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+
+                        //关闭当前frame
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    };
+                    layer.alert(message, {icon: 5}, latterOperation);
+                }
+            });
             return false;
         });
+
+
 
 
     });

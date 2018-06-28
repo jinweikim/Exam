@@ -1,6 +1,6 @@
 package com.example.exam.Controller;
 
-import com.example.exam.Entity.Papers;
+import com.example.exam.Entity.Paper;
 import com.example.exam.Entity.Questions;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.Service.QueService;
@@ -25,15 +25,15 @@ public class PaperController {
     @RequestMapping("/paperList")
     public ModelAndView PaperList(){
         ModelAndView mav = new ModelAndView();
-        Papers papers1 = new Papers();
-        Papers papers2 = new Papers();
-        Papers papers3 = new Papers();
+        Paper papers1 = new Paper();
+        Paper papers2 = new Paper();
+        Paper papers3 = new Paper();
         Questions que1 = queService.getOptById(1);
         Questions que2 = queService.getOptById(2);
         Questions que3 = queService.getBlankById(3);
         logger.info(que1.que_head);
         ArrayList<Questions> queList = new ArrayList<>();
-        ArrayList<Papers> paperList = new ArrayList<>();
+        ArrayList<Paper> paperList = new ArrayList<>();
         queList.add(que1);
         queList.add(que2);
         queList.add(que3);
@@ -49,5 +49,18 @@ public class PaperController {
 
         mav.setViewName("paper_list");
         return mav;
+    }
+
+    @RequestMapping("/add")
+    public ModelAndView PaperAdd(){
+        ArrayList<Questions> OptList = new ArrayList<>();
+        ArrayList<Questions> BlankList = new ArrayList<>();
+        OptList = (ArrayList)queService.getOptList();
+        BlankList = (ArrayList)queService.getBlankList();
+
+
+        ModelAndView mav = new ModelAndView();
+        return mav;
+
     }
 }

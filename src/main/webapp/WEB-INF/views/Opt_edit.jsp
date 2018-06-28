@@ -77,7 +77,7 @@
         </div>
         <div class="layui-form-item">
             <label for="L_que_opt_e" class="layui-form-label">
-                <span class="x-red">*</span>E选项
+                E选项
             </label>
             <div class="layui-input-inline">
                 <textarea id="L_que_opt_e" name="que_opt_e" required=""

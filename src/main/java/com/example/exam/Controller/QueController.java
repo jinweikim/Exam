@@ -75,8 +75,11 @@ public class QueController {
         String type = questions.getQue_type();
         if(type.equals("opt")){
             try{
+                logger.info("开始添加");
                 result = queService.addOpt(questions);
             }catch (Exception e){
+                e.printStackTrace();
+                logger.info("出现异常");
                 resultCode.setStatus("failed");
             }
         }else{
@@ -86,6 +89,7 @@ public class QueController {
                 resultCode.setStatus("failed");
             }
         }
+        logger.info(result.toString());
         if(result != 0){
             resultCode.setStatus("success");
         }else{

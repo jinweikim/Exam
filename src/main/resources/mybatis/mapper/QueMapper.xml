@@ -52,17 +52,17 @@
     <insert id="addOpt" parameterType="com.example.exam.Entity.Questions">
         INSERT INTO
         Questions
-        (que_id,que_head,que_ans,que_type,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e);
+        (que_head,que_ans,que_type,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e)
         VALUES
-        (#{que_id},#{que_head},#{que_ans},'opt',#{que_opt_a},#{que_opt_b},#{que_opt_c},#{que_opt_d},#{que_opt_e})
+        (#{que_head},#{que_ans},'opt',#{que_opt_a},#{que_opt_b},#{que_opt_c},#{que_opt_d},#{que_opt_e})
     </insert>
 
     <insert id="addBlank" parameterType="com.example.exam.Entity.Questions">
         INSERT INTO
         Questions
-        (que_id,que_head,que_ans,que_type);
+        (que_head,que_ans,que_type)
         VALUES
-        (#{que_id},#{que_head},#{que_ans},'blank')
+        (#{que_head},#{que_ans},'blank')
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">

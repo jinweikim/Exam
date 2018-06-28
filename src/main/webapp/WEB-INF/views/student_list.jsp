@@ -90,9 +90,14 @@
     <div class="page">
         <div>
             <a class="num" href="student_list?p=${studentList.firstPage}">首页</a>
-            <a class="num" href="student_list?p=${studentList.prePage}">前页</a>
+            <c:if test="${studentList.pageNum!=1}">
+                <a class="num" href="student_list?p=${studentList.prePage}">前页</a>
+            </c:if>
+
             <b class="current">第${studentList.pageNum}页</b>
-            <a class="num" href="student_list?p=${studentList.nextPage}">后页</a>
+            <c:if test="${studentList.pageNum!=studentList.lastPage}">
+                <a class="num" href="student_list?p=${studentList.nextPage}">后页</a>
+            </c:if>
             <a class="num" href="student_list?p=${studentList.lastPage}">尾页</a>
         </div>
     </div>

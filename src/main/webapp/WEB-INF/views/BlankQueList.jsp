@@ -84,12 +84,11 @@
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="BlankQueList?p=${queList.prePage}">&lt;&lt;</a>
-            <a class="num" href="BlankQueList?p=${queList.prePage}">${queList.prePage}</a>
-            <a class="current" href="BlankQueList?p=${queList.pageNum}">${queList.pageNum}</a>
-            <a class="num" href="BlankQueList?p=${queList.nextPage}">${queList.nextPage}</a>
-            <a class="num" href="BlankQueList?p=${quetList.lastPage}">最后一页</a>
-            <a class="next" href="BlankQueList?p=${queList.nextPage}">&gt;&gt;</a>
+            <a class="num" href="BlankQueList?p=${BlankQueList.firstPage}">首页</a>
+            <a class="num" href="BlankQueList?p=${BlankQueList.prePage}">前页</a>
+            <b class="current">第${BlankQueList.pageNum}页</b>
+            <a class="num" href="BlankQueList?p=${BlankQueList.nextPage}">后页</a>
+            <a class="num" href="BlankQueList?p=${BlankQueList.lastPage}">尾页</a>
         </div>
     </div>
 

@@ -11,6 +11,10 @@ public interface QueService {
 
     List<Questions> getBlankList(int page,int rows);
 
+    List<Questions> getOptList();
+
+    List<Questions> getBlankList();
+
     Integer addOpt(Questions que);
 
     Integer addBlank(Questions que);
