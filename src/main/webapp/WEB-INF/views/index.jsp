@@ -89,9 +89,15 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="/question/OptQueList">
+                        <a _href="/question/BlankQueList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>填空题列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/paper/paperList">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>试卷管理</cite>
                         </a>
                     </li >
                 </ul>

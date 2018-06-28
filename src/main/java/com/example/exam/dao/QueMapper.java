@@ -14,9 +14,7 @@ public interface QueMapper {
 
     Integer addBlank(Questions que);
 
-    Integer deleteOpt(Integer id);
-
-    Integer deleteBlank(Integer id);
+    Integer deleteById(Integer id);
 
     Integer updateOpt(Questions que);
 

@@ -44,7 +44,7 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','opt_add',600,400)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','blank_add',600,400)"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
     </xblock>
     <table class="layui-table">
@@ -71,10 +71,10 @@
                 <td>题干：${q.que_head} <br /> A.${q.que_opt_a} <br /> B.${q.que_opt_b} <br /> C.${q.que_opt_c} <br /> D.${q.que_opt_d}</td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
-                    <a title="编辑" onclick="x_admin_show('编辑','opt_edit/'+${q.que_id},600,400)" href="javascript:;">
+                    <a title="编辑" onclick="x_admin_show('编辑','blank_edit/'+${q.que_id},600,400)" href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
                     </a>
-                    <a title="删除" onclick="x_admin_show('删除','opt_delete/'+${q.que_id},600,400) " href="javascript:;">
+                    <a title="删除" onclick="x_admin_show('删除','delete/'+${q.que_id},600,400) " href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
                     </a>
                 </td>
@@ -84,12 +84,12 @@
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="OptQueList?p=${queList.prePage}">&lt;&lt;</a>
-            <a class="num" href="OptQueList?p=${queList.prePage}">${queList.prePage}</a>
-            <a class="current" href="OptQueList?p=${queList.pageNum}">${queList.pageNum}</a>
-            <a class="num" href="OptQueList?p=${queList.nextPage}">${queList.nextPage}</a>
-            <a class="num" href="OptQueList?p=${quetList.lastPage}">最后一页</a>
-            <a class="next" href="OptQueList?p=${queList.nextPage}">&gt;&gt;</a>
+            <a class="prev" href="BlankQueList?p=${queList.prePage}">&lt;&lt;</a>
+            <a class="num" href="BlankQueList?p=${queList.prePage}">${queList.prePage}</a>
+            <a class="current" href="BlankQueList?p=${queList.pageNum}">${queList.pageNum}</a>
+            <a class="num" href="BlankQueList?p=${queList.nextPage}">${queList.nextPage}</a>
+            <a class="num" href="BlankQueList?p=${quetList.lastPage}">最后一页</a>
+            <a class="next" href="BlankQueList?p=${queList.nextPage}">&gt;&gt;</a>
         </div>
     </div>
 

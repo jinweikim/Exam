@@ -1,7 +1,5 @@
 package com.example.exam.Service;
 
-import com.example.exam.Entity.BlankQuestions;
-import com.example.exam.Entity.OptionalQuestions;
 import com.example.exam.Entity.Questions;
 
 import java.util.List;
@@ -17,9 +15,7 @@ public interface QueService {
 
     Integer addBlank(Questions que);
 
-    Integer deleteOpt(Integer id);
-
-    Integer deleteBlank(Integer id);
+    Integer deleteById(Integer id);
 
     Integer updateOpt(Questions que);
 

@@ -36,7 +36,7 @@ public class Questions {
         this.que_ans = que_ans;
     }
 
-    public String getQue_typeType() {
+    public String getQue_Type() {
         return que_type;
     }
 

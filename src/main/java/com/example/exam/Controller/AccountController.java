@@ -34,20 +34,15 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    //打开登录界面
     @RequestMapping(value="/login")
     public String login(){
         return "login";
     }
 
+    //点击登录后验证合法性
     @RequestMapping(value = "/valid",method = RequestMethod.POST)
     public String valid(User user,HttpServletRequest request){
-//        User user = new User();
-//        user.setId("1501");
-//        user.setUsername(request.getParameter("name"));
-//        user.setPassword(request.getParameter("password"));
-        //       userService.add(user);
-//        User user1 = userService.getUserById("1500");
-//        logger.info(user1.getUsername());
         if(accountService.valid(user)){
             request.getSession().setAttribute("_session_user",user);
             logger.info("登录成功");
@@ -58,12 +53,14 @@ public class AccountController {
         }
     }
 
+    //用户测试
     @RequestMapping("/user")
     public @ResponseBody User getuser(HttpServletRequest request){
         User user1 = userService.getUserById("1500");
         return user1;
     }
 
+    //打开学生列表页
     @RequestMapping("/student_list")
     public ModelAndView getStudentList(HttpServletRequest request){
         ArrayList<User> studentList = new ArrayList<>();
@@ -80,7 +77,7 @@ public class AccountController {
     }
 
 
-
+    //打开学生信息编辑页面
     @RequestMapping("/student_edit/{id}")
     public ModelAndView studentEdit(@PathVariable String id){
         User user = userService.getUserById(id);
@@ -90,6 +87,7 @@ public class AccountController {
         return mav;
     }
 
+    //对学生信息进行删除
     @RequestMapping(value = "/student_delete/{id}")
     public @ResponseBody ResultCode StudentDelete(@PathVariable String id){
         ResultCode resultCode = new ResultCode();
@@ -108,6 +106,7 @@ public class AccountController {
 
     }
 
+    //打开添加学生信息页面
     @RequestMapping("/student_add")
     public ModelAndView studentAdd(){
         ModelAndView mav = new ModelAndView();
@@ -115,6 +114,7 @@ public class AccountController {
         return mav;
     }
 
+    //对学生信息进行更新
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public @ResponseBody ResultCode UserUpdate(User user){
         logger.info("更改用户信息:"+user.getUsername());
@@ -136,6 +136,7 @@ public class AccountController {
         return resultCode;
     }
 
+    //添加学生信息
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public @ResponseBody ResultCode UserAdd(User user){
         ResultCode resultCode = new ResultCode();

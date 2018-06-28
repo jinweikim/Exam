@@ -21,8 +21,19 @@
         que_id,que_head,que_ans
     </sql>
 
+    <select id="getOptById" parameterType="java.lang.Integer" resultMap="QueResultMap">
+        SELECT
+        <include refid="Opt_Column_List"/>
+        FROM Questions
+        WHERE que_id=#{id}
+    </select>
 
-
+    <select id="getBlankById" parameterType="java.lang.Integer" resultMap="QueResultMap">
+        SELECT
+        <include refid="Blank_Column_List"/>
+        FROM Questions
+        WHERE que_id=#{id}
+    </select>
 
     <select id="getOptList" resultMap="QueResultMap">
         SELECT
@@ -38,30 +49,56 @@
         WHERE que_type='blank'
     </select>
 
-    <insert id="add" parameterType="com.example.exam.Entity.User">
+    <insert id="addOpt" parameterType="com.example.exam.Entity.Questions">
         INSERT INTO
-        UserInfo
-        (user_id,user_name,user_password,user_grade,user_class)
+        Questions
+        (que_id,que_head,que_ans,que_type,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e);
         VALUES
-        (#{id},#{username},#{password},#{grade},#{userClass})
+        (#{que_id},#{que_head},#{que_ans},'opt',#{que_opt_a},#{que_opt_b},#{que_opt_c},#{que_opt_d},#{que_opt_e})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.String">
+    <insert id="addBlank" parameterType="com.example.exam.Entity.Questions">
+        INSERT INTO
+        Questions
+        (que_id,que_head,que_ans,que_type);
+        VALUES
+        (#{que_id},#{que_head},#{que_ans},'blank')
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
         DELETE FROM
-        UserInfo
+        Questions
         WHERE
-        user_id=#{id}
+        que_id=#{id}
     </delete>
 
-    <update id="update" parameterType="com.example.exam.Entity.User">
+
+    <update id="updateOpt" parameterType="com.example.exam.Entity.Questions">
         UPDATE
-        UserInfo
+        Questions
         SET
-        user_name=#{username},
-        user_password=#{password},
-        user_grade=#{grade},
-        user_class=#{userClass}
+        que_head=#{que_head},
+        que_ans=#{que_ans},
+        que_type='opt'
+        que_opt_a=#{que_opt_a},
+        que_opt_b=#{que_opt_b},
+        que_opt_c=#{que_opt_c},
+        que_opt_d=#{que_opt_d},
+        que_opt_e=#{que_opt_e},
         WHERE
-        user_id = #{id}
+        que_id=#{que_id}
     </update>
+
+    <update id="updateBlank" parameterType="com.example.exam.Entity.Questions">
+        UPDATE
+        Questions
+        SET
+        que_head=#{que_head},
+        que_ans=#{que_ans},
+        que_type=#{que_type}
+        WHERE
+        que_id=#{que_id}
+    </update>
+
+
 </mapper>

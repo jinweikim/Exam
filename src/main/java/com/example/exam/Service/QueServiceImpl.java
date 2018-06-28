@@ -1,11 +1,7 @@
 package com.example.exam.Service;
 
-import com.example.exam.Entity.BlankQuestions;
-import com.example.exam.Entity.OptionalQuestions;
 import com.example.exam.Entity.Questions;
 import com.example.exam.Interceptor.SessionInterceptor;
-import com.example.exam.dao.BlankMapper;
-import com.example.exam.dao.OptMapper;
 import com.example.exam.dao.QueMapper;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -48,14 +44,11 @@ public class QueServiceImpl implements QueService {
     }
 
     @Override
-    public Integer deleteOpt(Integer id) {
+    public Integer deleteById(Integer id) {
         return null;
     }
 
-    @Override
-    public Integer deleteBlank(Integer id) {
-        return null;
-    }
+
 
     @Override
     public Integer updateOpt(Questions que) {
@@ -69,11 +62,11 @@ public class QueServiceImpl implements QueService {
 
     @Override
     public Questions getOptById(Integer id) {
-        return null;
+        return queMapper.getOptById(id);
     }
 
     @Override
     public Questions getBlankById(Integer id) {
-        return null;
+        return queMapper.getBlankById(id);
     }
 }
