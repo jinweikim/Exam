@@ -3,6 +3,7 @@ package com.example.exam.Controller;
 import com.example.exam.Entity.Paper;
 import com.example.exam.Entity.Questions;
 import com.example.exam.Interceptor.SessionInterceptor;
+import com.example.exam.Service.PaperService;
 import com.example.exam.Service.QueService;
 import com.example.exam.Utils.QueUtils;
 import org.slf4j.Logger;
@@ -22,6 +23,9 @@ public class PaperController {
 
     @Autowired
     private QueService queService;
+
+    @Autowired
+    private PaperService paperService;
 
     @RequestMapping("/paperList")
     public ModelAndView PaperList(){
@@ -49,7 +53,7 @@ public class PaperController {
         return mav;
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/PaperAdmin")
     public ModelAndView PaperAdd(){
         ArrayList<Questions> AllOptList = new ArrayList<>();
         ArrayList<Questions> AllBlankList = new ArrayList<>();
@@ -64,10 +68,15 @@ public class PaperController {
         logger.info("Opt大小:"+OptList.size());
         logger.info("Blank大小:"+BlankList.size());
         OptList.addAll(BlankList);//合并两个list
+        ArrayList<Paper> paperList = new ArrayList<>();
+
+//        paperList = QueUtils.Que2Paper(OptList,1);
+//        paperService.addAll(paperList);
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("queList",OptList);
-        mav.setViewName("ChooseList");
         logger.info("合并后大小:"+OptList.size());
+        mav.setViewName("ChooseList");
         return mav;
 
     }

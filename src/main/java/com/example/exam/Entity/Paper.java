@@ -5,7 +5,9 @@ import java.util.List;
 
 public class Paper{
 
-    private String group;
+    private int group;
+    private int que_id;
+    private int paper_id;
     private ArrayList<Questions> list;
     private int size;
     private String name;
@@ -17,11 +19,11 @@ public class Paper{
         }
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(int group) {
         this.group = group;
     }
 
@@ -50,5 +52,21 @@ public class Paper{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getQue_id() {
+        return que_id;
+    }
+
+    public void setQue_id(int que_id) {
+        this.que_id = que_id;
+    }
+
+    public int getPaper_id() {
+        return paper_id;
+    }
+
+    public void setPaper_id(int paper_id) {
+        this.paper_id = paper_id;
     }
 }

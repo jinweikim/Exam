@@ -55,8 +55,8 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th width="75%">题目</th>
-            <th>答案</th>
+            <th width="60%">题目</th>
+            <th width="15%">答案</th>
             <th >操作</th>
             </tr>
         </thead>
@@ -68,7 +68,7 @@
                             class="layui-icon">&#xe605;</i></div>
                 </td>
 
-                <td>题干：${q.que_head} <br /> A.${q.que_opt_a} <br /> B.${q.que_opt_b} <br /> C.${q.que_opt_c} <br /> D.${q.que_opt_d}</td>
+                <td>${q.que_head} <br /> </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
                     <a title="编辑" onclick="x_admin_show('编辑','blank_edit/'+${q.que_id},600,400)" href="javascript:;">
@@ -85,9 +85,13 @@
     <div class="page">
         <div>
             <a class="num" href="BlankQueList?p=${queList.firstPage}">首页</a>
-            <a class="num" href="BlankQueList?p=${queList.prePage}">前页</a>
+            <c:if test="${queList.pageNum!=1}">
+                <a class="num" href="BlankQueList?p=${queList.prePage}">前页</a>
+            </c:if>
             <b class="current">第${queList.pageNum}页</b>
-            <a class="num" href="BlankQueList?p=${queList.nextPage}">后页</a>
+            <c:if test="${queList.pageNum!=queList.lastPage}">
+                <a class="num" href="BlankQueList?p=${queList.nextPage}">后页</a>
+            </c:if>
             <a class="num" href="BlankQueList?p=${queList.lastPage}">尾页</a>
         </div>
     </div>

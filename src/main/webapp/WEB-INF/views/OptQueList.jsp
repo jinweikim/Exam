@@ -55,8 +55,8 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th width="75%">题目</th>
-            <th>答案</th>
+            <th width="70%">题目</th>
+            <th >答案</th>
             <th >操作</th>
             </tr>
         </thead>
@@ -68,12 +68,14 @@
                             class="layui-icon">&#xe605;</i></div>
                 </td>
 
-                <td>题干：${q.que_head} <br />
-                    A.${q.que_opt_a} <br />
-                    B.${q.que_opt_b} <br />
-                    C.${q.que_opt_c} <br />
+                <td>${q.que_head} <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">展开</a><br/>
+                    <span id="option_${q.que_id}" style="display:none">
+                    A.${q.que_opt_a} <br/>
+                    B.${q.que_opt_b} <br/>
+                    C.${q.que_opt_c} <br/>
                     D.${q.que_opt_d}<br/>
                     <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                    </span>
                 </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
@@ -119,27 +121,17 @@
     });
 
     /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
+    function optionDisplay(obj,id){
+        var span=document.getElementById('option_'+id);
 
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
+        if($(obj).text()=='隐藏'){
+            span.style.display="none";
+            $(obj).text("展开");
+        }
+        else{
+            span.style.display="inline";
+            $(obj).text("隐藏");
+        }
     }
 
     function member_del(obj, id) {

@@ -95,7 +95,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="/paper/paperList">
+                        <a _href="/paper/PaperAdmin">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>试卷管理</cite>
                         </a>
