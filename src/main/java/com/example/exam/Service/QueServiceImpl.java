@@ -34,6 +34,12 @@ public class QueServiceImpl implements QueService {
     }
 
     @Override
+    public List<Questions> getAllList(int page, int rows) {
+        PageHelper.startPage(page,rows);
+        return queMapper.getAllList();
+    }
+
+    @Override
     public List<Questions> getOptList() {
         return queMapper.getOptList();
     }

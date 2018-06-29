@@ -28,17 +28,15 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim">
+<body class="layui-anim layui-anim-up">
 <div class="x-nav">
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','student_add',600,400)"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">条</span>
-        <span class="x-right" style="line-height:40px" id="total">${studentList.total}</span>
+        <span class="x-right" style="line-height:40px" id="total">${queList.total}</span>
         <span class="x-right" style="line-height:40px">共有数据:</span>
     </xblock>
     <table class="layui-table">
@@ -47,52 +45,49 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th style="width: 15%;">ID</th>
-            <th style="width: 16%;">用户名</th>
-            <th style="width: 20%;">密码</th>
-            <th style="width: 10%;">分数</th>
-            <th style="width: 15%;">班级</th>
-            <th>操作</th>
+            <th width="70%">题目</th>
+            <th >答案</th>
+            <th >操作</th>
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${studentList.list}" var="s">
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+        <c:forEach items="${queList.list}" var="q">
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
+                            class="layui-icon">&#xe605;</i></div>
+                </td>
 
-                <td>${s.id}</td>
-                <td>${s.username}</td>
-                <td>${s.password}</td>
-                <td>${s.grade}</td>
-                <td>${s.userClass}</td>
-            <%--<td class="td-status">--%>
-                <%--</td>--%>
-            <td class="td-manage" align="center">
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/'+${s.id},600,400)" href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
-                </a>
-                <a title="删除" onclick="member_del(this,${s.id})" href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>
-                </a>
-            </td>
-        </tr>
+                <td>${q.que_head} <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">展开</a><br/>
+                    <span id="option_${q.que_id}" style="display:none">
+                    <c:if test="${not empty q.que_opt_a}">A.${q.que_opt_a} <br/></c:if>
+                    <c:if test="${not empty q.que_opt_b}">B.${q.que_opt_b} <br/></c:if>
+                    <c:if test="${not empty q.que_opt_c}">C.${q.que_opt_c} <br/></c:if>
+                    <c:if test="${not empty q.que_opt_d}">D.${q.que_opt_d}<br/></c:if>
+                    <c:if test="${not empty q.que_opt_e}">E.${q.que_opt_e}</c:if>
+                    </span>
+                </td>
+                <td>${q.que_ans}</td>
+                <td class="td-manage" align="center">
+                    <a title="编辑" onclick="x_admin_show('用此替换','doReplace?replaceId=${q.que_id}&sourceId=${sourceId}',600,400)" href="javascript:;">
+                        <span class="layui-btn layui-btn-normal layui-btn-mini">用此替换</span>
+                    </a>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>
     <div class="page">
         <div>
-            <a class="num" href="student_list?p=${studentList.firstPage}">首页</a>
-            <c:if test="${studentList.pageNum!=1}">
-                <a class="num" href="student_list?p=${studentList.prePage}">前页</a>
+            <a class="num" href="replace_list?p=${queList.firstPage}">首页</a>
+            <c:if test="${queList.pageNum!=1}">
+                <a class="num" href="replace_list?p=${queList.prePage}">前页</a>
             </c:if>
-
-            <b class="current">第${studentList.pageNum}页</b>
-            <c:if test="${studentList.pageNum!=studentList.lastPage}">
-                <a class="num" href="student_list?p=${studentList.nextPage}">后页</a>
+            <b class="current">第${queList.pageNum}页</b>
+            <c:if test="${queList.pageNum!=queList.lastPage}">
+                <a class="num" href="replace_list?p=${queList.nextPage}">后页</a>
             </c:if>
-            <a class="num" href="student_list?p=${studentList.lastPage}">尾页</a>
+            <a class="num" href="replace_list?p=${queList.lastPage}">尾页</a>
         </div>
     </div>
 
@@ -113,37 +108,26 @@
     });
 
     /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
+    function optionDisplay(obj,id){
+        var span=document.getElementById('option_'+id);
 
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
+        if($(obj).text()=='隐藏'){
+            span.style.display="none";
+            $(obj).text("展开");
+        }
+        else{
+            span.style.display="inline";
+            $(obj).text("隐藏");
+        }
     }
 
-    /*用户-删除*/
     function member_del(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
 
             //发异步删除数据
             $.ajax({
                 type: "get",
-                url: "/account/student_delete/"+id,
+                url: "/question/delete/"+id,
                 success: function (response) {
                     if (response.status != null && response.status == 'success') {
                         $(obj).parents("tr").remove();
@@ -162,8 +146,6 @@
             });
         });
     }
-
-
 
     function delAll (argument) {
 

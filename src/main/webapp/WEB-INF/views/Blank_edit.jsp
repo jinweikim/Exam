@@ -32,9 +32,9 @@
     <form class="layui-form">
         <div class="layui-form-item">
             <label for="L_que_head" class="layui-form-label">
-                <span class="x-red">*</span>题干
+                <span class="x-red">*</span>题目
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_head" name="que_head" required=""
                           autocomplete="off" class="layui-textarea">${que.que_head}</textarea>
             </div>
@@ -43,7 +43,7 @@
             <label for="L_que_ans" class="layui-form-label">
                 <span class="x-red">*</span>答案
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <input type="text" id="L_que_ans" value="${que.que_ans}" name="que_ans"
                        autocomplete="off" class="layui-input">
             </div>

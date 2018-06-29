@@ -2,7 +2,10 @@ package com.example.exam.Utils;
 
 import com.example.exam.Entity.Paper;
 import com.example.exam.Entity.Questions;
+import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.Service.QueService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -11,8 +14,10 @@ import java.util.Random;
 
 public class QueUtils {
 
+    private final static Logger logger = LoggerFactory.getLogger(QueUtils.class);
+
     @Autowired
-    private static QueService queService;
+    private QueService queService;
 
     public static ArrayList getRandomList(ArrayList<Questions> paramList,int count){
         if(paramList.size()<count){
@@ -45,22 +50,26 @@ public class QueUtils {
         return newList;
     }
 
-    public static ArrayList<Questions> Paper2Que(ArrayList<Paper> list){
-        ArrayList<Questions> newList = new ArrayList<>();
-        for(Paper p:list){
-            Questions que = new Questions();
-            que = queService.getOptById(p.getQue_id());
-            if(que != null){
-                newList.add(que);
-            }else{
-                que = queService.getBlankById(p.getQue_id());
-                if(que != null){
-                    newList.add(que);
-                }
-            }
-        }
-        return newList;
-    }
+//    public ArrayList<Questions> Paper2Que(ArrayList<Paper> list){
+//        ArrayList<Questions> newList = new ArrayList<>();
+//
+//        Questions que1 = queService.getOptById(5);
+//        for(Paper p:list){
+//            logger.info("每个que的id: "+p.getQue_id());
+//            Questions que = queService.getOptById(5);
+//            logger.info("que题干: "+ que.getQue_head());
+//            //que = queService.getOptById(p.getQue_id());
+//            if(que != null){
+//                newList.add(que);
+//            }else{
+//                que = queService.getBlankById(p.getQue_id());
+//                if(que != null){
+//                    newList.add(que);
+//                }
+//            }
+//        }
+//        return newList;
+//    }
 
 
     public static void main(String[] args){

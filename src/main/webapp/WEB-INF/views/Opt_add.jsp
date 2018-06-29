@@ -33,7 +33,7 @@
             <label for="L_que_head" class="layui-form-label">
                 <span class="x-red">*</span>题干
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_head" name="que_head" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>
@@ -42,7 +42,7 @@
             <label for="L_que_opt_a" class="layui-form-label">
                 <span class="x-red">*</span>A选项
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_opt_a" name="que_opt_a" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>
@@ -51,7 +51,7 @@
             <label for="L_que_opt_b" class="layui-form-label">
                 <span class="x-red">*</span>B选项
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_opt_b" name="que_opt_b" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>
@@ -60,7 +60,7 @@
             <label for="L_que_opt_c" class="layui-form-label">
                 <span class="x-red">*</span>C选项
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_opt_c" name="que_opt_c" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>
@@ -69,7 +69,7 @@
             <label for="L_que_opt_d" class="layui-form-label">
                 <span class="x-red">*</span>D选项
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_opt_d" name="que_opt_d" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>
@@ -78,7 +78,7 @@
             <label for="L_que_opt_e" class="layui-form-label">
                 </span>E选项
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <textarea id="L_que_opt_e" name="que_opt_e" required=""
                           autocomplete="off" class="layui-textarea"></textarea>
             </div>

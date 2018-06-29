@@ -21,6 +21,10 @@
         que_id,que_head,que_ans
     </sql>
 
+    <sql id="Que_Column_List">
+        que_id,que_head,que_ans,que_type,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e
+    </sql>
+
     <select id="getOptById" parameterType="java.lang.Integer" resultMap="QueResultMap">
         SELECT
         <include refid="Opt_Column_List"/>
@@ -47,6 +51,12 @@
         <include refid="Blank_Column_List"/>
         FROM Questions
         WHERE que_type='blank'
+    </select>
+
+    <select id="getAllList" resultMap="QueResultMap">
+        SELECT
+        <include refid="Que_Column_List"/>
+        FROM Questions
     </select>
 
     <insert id="addOpt" parameterType="com.example.exam.Entity.Questions">

@@ -2,25 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.exam.dao.PaperMapper">
     <resultMap id="BaseResultMap" type="com.example.exam.Entity.Paper">
-        <id column="que_id" property="que_id" jdbcType="INTEGER"/>
+        <id column="paper_id" property="paper_id" jdbcType="INTEGER"/>
+        <result column = "que_id" property = "que_id" />
         <result column = "paper_group" property = "group" />
     </resultMap>
 
+    <resultMap id="QueResultMap" type="com.example.exam.Entity.Questions">
+        <id column="que_id" property="que_id" jdbcType="INTEGER"/>
+        <result column = "que_head" property = "que_head" />
+        <result column = "que_ans" property = "que_ans"/>
+        <result column = "que_type" property = "que_type"/>
+        <result column="que_opt_a" property="que_opt_a"/>
+        <result column = "que_opt_b" property = "que_opt_b" />
+        <result column = "que_opt_c" property = "que_opt_c" />
+        <result column = "que_opt_d" property = "que_opt_d" />
+        <result column = "que_opt_e" property = "que_opt_e" />
+    </resultMap>
+
     <sql id="Base_Column_List">
-        user_id,user_name,user_password,user_grade,user_class
+        paper_id,que_id,paper_group
     </sql>
 
-    <select id="getUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <sql id="Que_Column_List">
+        que_id,que_head,que_ans,que_opt_a,que_opt_b,que_opt_c,que_opt_d,que_opt_e
+    </sql>
+
+
+    <select id="getQueInPaper" resultMap="QueResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
-        FROM UserInfo
-        WHERE user_id=#{id}
+        Questions.que_id,
+        Questions.que_head,
+        Questions.que_ans,
+        Questions.que_opt_a,
+        Questions.que_opt_b,
+        Questions.que_opt_c,
+        Questions.que_opt_d,
+        Questions.que_opt_e
+        FROM Paper,Questions
+        WHERE
+        Paper.que_id=Questions.que_id
     </select>
 
-    <select id="getUserList" resultMap="BaseResultMap">
+    <select id="getPaperByQueId" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM UserInfo
+        FROM Paper
+        WHERE que_id=#{id}
+    </select>
+
+    <select id="getPaperList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Paper
+        WHERE paper_group=#{group}
     </select>
 
     <insert id="add" parameterType="com.example.exam.Entity.Paper">
@@ -31,22 +65,28 @@
         (#{que_id},#{group})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.String">
+    <delete id="deleteAll">
         DELETE FROM
-        UserInfo
-        WHERE
-        user_id=#{id}
+        Paper
     </delete>
 
-    <update id="update" parameterType="com.example.exam.Entity.User">
+
+    <update id="update" parameterType="com.example.exam.Entity.Paper">
         UPDATE
-        UserInfo
+        Paper
         SET
-        user_name=#{username},
-        user_password=#{password},
-        user_grade=#{grade},
-        user_class=#{userClass}
+        que_id=#{que_id},
+        paper_group=#{group}
         WHERE
-        user_id = #{id}
+        paper_id=#{paper_id}
     </update>
+
+    <select id="findQueInPaper" resultType="java.lang.Integer">
+        SELECT
+        paper_id
+        FROM
+        Paper
+        WHERE
+        que_id=#{id}
+    </select>
 </mapper>

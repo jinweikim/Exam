@@ -8,7 +8,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>欢迎来到在线考试系统管理区</title>
@@ -34,18 +33,10 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end">
-            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
-    </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','add',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据:条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','ReCombinePaper',600,400)"><i class="layui-icon"></i>重新生成试卷</button>
+        <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -53,47 +44,47 @@
             <th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th style="width: 15%;">ID</th>
-            <th style="width: 16%;">用户名</th>
-            <th style="width: 20%;">密码</th>
-            <th style="width: 10%;">分数</th>
-            <th style="width: 15%;">班级</th>
-            <th>操作</th>
+            <th>题号</th>
+            <th width="70%">题目</th>
+            <th>答案</th>
+            <th >操作</th>
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${paperList}" var="p">
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+        <c:forEach items="${queList.list}" var="q">
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
+                            class="layui-icon">&#xe605;</i></div>
+                </td>
 
-                <td>${p.name}</td>
-                <td>${p.group}</td>
-                <td>${p.size}</td>
-            <%--<td class="td-status">--%>
-                <%--</td>--%>
-            <td class="td-manage" align="center">
-                <a title="编辑"  onclick="x_admin_show('编辑','student_edit/',600,400)" href="javascript:;">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini">编辑</span>
-                </a>
-                <%--<a title="删除" onclick="member_del(this,${p.que_id})" href="javascript:;">--%>
-                    <%--<span class="layui-btn layui-btn-normal layui-btn-mini" style="background:#ff4927">删除</span>--%>
-                <%--</a>--%>
-            </td>
-        </tr>
+                <td>${q.que_id}</td>
+                <td>题干：${q.que_head} <br />
+                    A.${q.que_opt_a} <br />
+                    B.${q.que_opt_b} <br />
+                    C.${q.que_opt_c} <br />
+                    D.${q.que_opt_d}<br/>
+                    <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                </td>
+                <td>${q.que_ans}</td>
+                <td class="td-manage" align="center">
+                    <a title="编辑" onclick="x_admin_show('编辑','replace_list?p=1&queId='+${q.que_id},600,400)" href="javascript:;">
+                        <span class="layui-btn layui-btn-normal layui-btn-mini">替换</span>
+                    </a>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>
-    <%--<div class="page">--%>
-        <%--<div>--%>
-            <%--<a class="num" href="student_list?p=${studentList.firstPage}">首页</a>--%>
-            <%--<a class="num" href="student_list?p=${studentList.prePage}">前页</a>--%>
-            <%--<b class="current">第${studentList.pageNum}页</b>--%>
-            <%--<a class="num" href="student_list?p=${studentList.nextPage}">后页</a>--%>
-            <%--<a class="num" href="student_list?p=${studentList.lastPage}">尾页</a>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+    <div class="page">
+        <div>
+            <a class="num" href="paperList?p=${queList.firstPage}">首页</a>
+            <a class="num" href="paperList?p=${queList.prePage}">前页</a>
+            <b class="current">第${queList.pageNum}页</b>
+            <a class="num" href="paperList?p=${queList.nextPage}">后页</a>
+            <a class="num" href="paperList?p=${queList.lastPage}">尾页</a>
+        </div>
+    </div>
 
 </div>
 <script>
@@ -136,26 +127,11 @@
     }
 
     /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            $.ajax({
-                type: "get",
-                url: "/account/student_delete/"+id,
-                success: function (response) {
-                    if (response.status != null && response.status == 'success') {
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除!', {icon: 1, time: 1000});
-                    }
-                    else {
-                        layer.msg('删除失败!', {icon: 1, time: 1000});
-                    }
-                },
-                error: function () {
-                    layer.msg('删除失败!', {icon: 1, time: 1000});
-                }
-            });
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
         });
     }
 

@@ -10,6 +10,8 @@ public interface QueMapper {
 
     List<Questions> getBlankList();
 
+    List<Questions> getAllList();
+
     Integer addOpt(Questions que);
 
     Integer addBlank(Questions que);
