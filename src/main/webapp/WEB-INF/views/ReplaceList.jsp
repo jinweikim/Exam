@@ -28,7 +28,7 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim layui-anim-up">
+<body class="layui-anim">
 <div class="x-nav">
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
@@ -79,15 +79,15 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="replace_list?p=${queList.firstPage}">首页</a>
+            <a class="num" href="replace_list?p=${queList.firstPage}&queId=${sourceId}">首页</a>
             <c:if test="${queList.pageNum!=1}">
-                <a class="num" href="replace_list?p=${queList.prePage}">前页</a>
+                <a class="num" href="replace_list?p=${queList.prePage}&queId=${sourceId}">前页</a>
             </c:if>
             <b class="current">第${queList.pageNum}页</b>
             <c:if test="${queList.pageNum!=queList.lastPage}">
-                <a class="num" href="replace_list?p=${queList.nextPage}">后页</a>
+                <a class="num" href="replace_list?p=${queList.nextPage}&queId=${sourceId}">后页</a>
             </c:if>
-            <a class="num" href="replace_list?p=${queList.lastPage}">尾页</a>
+            <a class="num" href="replace_list?p=${queList.lastPage}&queId=${sourceId}">尾页</a>
         </div>
     </div>
 

@@ -27,15 +27,14 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim layui-anim-up">
-<div class="x-nav">
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-</div>
+<body class="layui-anim">
+
 <div class="x-body">
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','ReCombinePaper',600,400)"><i class="layui-icon"></i>重新生成试卷</button>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:30px">ဂ</i></a>
         <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
     </xblock>
     <table class="layui-table">
