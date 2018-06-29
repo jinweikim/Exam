@@ -16,9 +16,7 @@ public class AccountService {
 
     public boolean valid(User user){
         logger.info("判断用户信息");
-        User dbuser;
-        dbuser = userService.getUser(user.getId(),user.getPassword());
-        if(dbuser != null){
+        if(user != null){
             return true;
         }else{
             return false;

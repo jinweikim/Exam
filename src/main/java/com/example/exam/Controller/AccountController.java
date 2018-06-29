@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,9 +43,11 @@ public class AccountController {
 
     //点击登录后验证合法性
     @RequestMapping(value = "/valid",method = RequestMethod.POST)
-    public String valid(User user,HttpServletRequest request){
-        if(accountService.valid(user)){
-            request.getSession().setAttribute("_session_user",user);
+    public String valid(User user,HttpServletRequest request,Model model){
+        User dbuser;
+        dbuser = userService.getUser(user.getId(),user.getPassword());
+        if(accountService.valid(dbuser)){
+            request.getSession().setAttribute("_session_user",dbuser);
             logger.info("登录成功");
             if(user.getId().equals("1000")){
                 return "index";
