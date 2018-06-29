@@ -27,14 +27,13 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim">
-
+<body class="layui-anim ">
 <div class="x-body">
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','ReCombinePaper',600,400)"><i class="layui-icon"></i>重新生成试卷</button>
         <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
         <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
     </xblock>
     <table class="layui-table">
@@ -58,12 +57,17 @@
                 </td>
 
                 <td>${q.que_id}</td>
-                <td>题干：${q.que_head} <br />
-                    A.${q.que_opt_a} <br />
-                    B.${q.que_opt_b} <br />
-                    C.${q.que_opt_c} <br />
-                    D.${q.que_opt_d}<br/>
-                    <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                <td>${q.que_head}
+                    <c:if test="${q.que_type=='opt'}">
+                        <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">选项</a><br/>
+                        <span id="option_${q.que_id}" style="display:none">
+                            A.${q.que_opt_a} <br/>
+                            B.${q.que_opt_b} <br/>
+                            C.${q.que_opt_c} <br/>
+                            D.${q.que_opt_d}<br/>
+                        <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                        </span>
+                    </c:if>
                 </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
@@ -78,9 +82,9 @@
     <div class="page">
         <div>
             <a class="num" href="paperList?p=${queList.firstPage}">首页</a>
-            <a class="num" href="paperList?p=${queList.prePage}">前页</a>
+            <c:if test="${queList.pageNum!=1}"><a class="num" href="paperList?p=${queList.prePage}">前页</a></c:if>
             <b class="current">第${queList.pageNum}页</b>
-            <a class="num" href="paperList?p=${queList.nextPage}">后页</a>
+            <c:if test="${queList.pageNum!=queList.lastPage}"><a class="num" href="paperList?p=${queList.nextPage}">后页</a></c:if>
             <a class="num" href="paperList?p=${queList.lastPage}">尾页</a>
         </div>
     </div>
@@ -102,27 +106,18 @@
     });
 
     /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
+    /*用户-停用*/
+    function optionDisplay(obj,id){
+        var span=document.getElementById('option_'+id);
 
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
+        if($(obj).text()=='隐藏'){
+            span.style.display="none";
+            $(obj).text("选项");
+        }
+        else{
+            span.style.display="inline";
+            $(obj).text("隐藏");
+        }
     }
 
     /*用户-删除*/

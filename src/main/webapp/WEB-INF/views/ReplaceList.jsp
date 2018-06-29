@@ -29,13 +29,11 @@
 </head>
 
 <body class="layui-anim">
-<div class="x-nav">
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-</div>
 <div class="x-body">
     <xblock>
-        <span class="x-right" style="line-height:40px">条</span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        <span class="x-right" style="line-height:40px">条&nbsp;&nbsp;</span>
         <span class="x-right" style="line-height:40px" id="total">${queList.total}</span>
         <span class="x-right" style="line-height:40px">共有数据:</span>
     </xblock>
@@ -58,18 +56,21 @@
                             class="layui-icon">&#xe605;</i></div>
                 </td>
 
-                <td>${q.que_head} <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">展开</a><br/>
-                    <span id="option_${q.que_id}" style="display:none">
-                    <c:if test="${not empty q.que_opt_a}">A.${q.que_opt_a} <br/></c:if>
-                    <c:if test="${not empty q.que_opt_b}">B.${q.que_opt_b} <br/></c:if>
-                    <c:if test="${not empty q.que_opt_c}">C.${q.que_opt_c} <br/></c:if>
-                    <c:if test="${not empty q.que_opt_d}">D.${q.que_opt_d}<br/></c:if>
-                    <c:if test="${not empty q.que_opt_e}">E.${q.que_opt_e}</c:if>
-                    </span>
+                <td>${q.que_head}
+                    <c:if test="${q.que_type=='opt'}">
+                        <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">选项</a><br/>
+                        <span id="option_${q.que_id}" style="display:none">
+                            A.${q.que_opt_a} <br/>
+                            B.${q.que_opt_b} <br/>
+                            C.${q.que_opt_c} <br/>
+                            D.${q.que_opt_d}<br/>
+                        <c:if test="${not empty q.que_opt_e}"> E.${q.que_opt_e}</c:if>
+                        </span>
+                    </c:if>
                 </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
-                    <a title="编辑" onclick="x_admin_show('用此替换','doReplace?replaceId=${q.que_id}&sourceId=${sourceId}',600,400)" href="javascript:;">
+                    <a title="编辑" onclick="update('doReplace?replaceId=${q.que_id}&sourceId=${sourceId}')" href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini">用此替换</span>
                     </a>
                 </td>
@@ -93,19 +94,47 @@
 
 </div>
 <script>
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
+    function update(url) {
+        var layer = layui.layer;
+        $.ajax({
+            type: "get",
+            url: "/paper/"+url,
+            success: function (response) {
+                var message, iconNumber;
+                if (response.status != null && response.status == 'success') {
+                    message = "更改成功";
+                    iconNumber = 6;
+                }
+                else {
+                    message = "更改失败";
+                    iconNumber = 5;
+                }
+                var latterOperation = function () {
+                    // 获得frame索引
+                    var index = parent.layer.getFrameIndex(window.name);
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
+                    //关闭当前frame
+                    window.parent.location.reload();
+                    parent.layer.close(index);
+                };
+                layer.alert(message, {icon: iconNumber}, latterOperation);
+            },
+            error: function () {
+                var message = "更改失败";
+                var latterOperation = function () {
+                    // 获得frame索引
+                    var index = parent.layer.getFrameIndex(window.name);
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
+                    //关闭当前frame
+                    window.parent.location.reload();
+                    parent.layer.close(index);
+                };
+                layer.alert(message, {icon: 5}, latterOperation);
+            }
         });
-    });
+    }
+
+
 
     /*用户-停用*/
     function optionDisplay(obj,id){
@@ -121,42 +150,7 @@
         }
     }
 
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
 
-            //发异步删除数据
-            $.ajax({
-                type: "get",
-                url: "/question/delete/"+id,
-                success: function (response) {
-                    if (response.status != null && response.status == 'success') {
-                        $(obj).parents("tr").remove();
-                        var elem = $('#total');
-                        var last = elem.text();
-                        elem.text(last-1);
-                        layer.msg('已删除!', {icon: 1, time: 1000});
-                    }
-                    else {
-                        layer.msg('删除失败!', {icon: 1, time: 1000});
-                    }
-                },
-                error: function () {
-                    layer.msg('删除失败!', {icon: 1, time: 1000});
-                }
-            });
-        });
-    }
-
-    function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
 </script>
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");

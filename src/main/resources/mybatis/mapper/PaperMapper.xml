@@ -33,6 +33,7 @@
         Questions.que_id,
         Questions.que_head,
         Questions.que_ans,
+        Questions.que_type,
         Questions.que_opt_a,
         Questions.que_opt_b,
         Questions.que_opt_c,
