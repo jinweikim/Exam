@@ -20,6 +20,13 @@
         WHERE user_id=#{id}
     </select>
 
+    <select id="getUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM UserInfo
+        WHERE user_id=#{id} AND user_password=#{pwd}
+    </select>
+
     <select id="getUserList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

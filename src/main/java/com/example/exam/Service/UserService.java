@@ -14,4 +14,5 @@ public interface UserService {
     Integer add(User user);
     Integer deleteById(String id);
     Integer update(User user);
+    User getUser(String id,String pwd);
 }

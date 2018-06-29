@@ -46,7 +46,11 @@ public class AccountController {
         if(accountService.valid(user)){
             request.getSession().setAttribute("_session_user",user);
             logger.info("登录成功");
-            return "index";
+            if(user.getId().equals("1000")){
+                return "index";
+            }else {
+                return "redirect:/quiz/start";
+            }
         }else{
             logger.info("登录失败");
             return "error";

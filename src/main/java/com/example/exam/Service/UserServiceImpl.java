@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService{
         PageHelper.startPage(page,rows);
         return userMapper.getUserList();
     }
+
+    @Override
+    public User getUser(String id, String pwd) {
+        return userMapper.getUser(id,pwd);
+    }
 }

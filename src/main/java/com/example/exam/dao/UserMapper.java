@@ -1,6 +1,7 @@
 package com.example.exam.dao;
 
 import com.example.exam.Entity.User;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -30,6 +31,8 @@ public interface UserMapper {
     Integer deleteById(String id);
 
     Integer update(User user);
+
+    User getUser(@Param("id") String name,@Param("pwd") String pwd);
 
 
 
