@@ -41,6 +41,14 @@ public class AccountController {
         return "login";
     }
 
+    //欢迎界面
+    @RequestMapping(value = "welcome")
+    public ModelAndView welcome(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("welcome");
+        return mav;
+    }
+
     //点击登录后验证合法性
     @RequestMapping(value = "/valid",method = RequestMethod.POST)
     public String valid(User user,HttpServletRequest request,Model model){

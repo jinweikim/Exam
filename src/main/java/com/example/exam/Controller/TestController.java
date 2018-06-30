@@ -7,11 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TestController {
-    @GetMapping("/home")
+    @GetMapping("/error")
     public ModelAndView index(){
         ModelMap model = new ModelMap();
-        model.addAttribute("name","king");
-        return new ModelAndView("home",model);
+        return new ModelAndView("error",model);
 
     }
 }

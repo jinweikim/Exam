@@ -58,28 +58,28 @@
     			</span>
             </h1>
             <form method="post" action="/quiz/end" >
-            <c:forEach items="${queList}" var="q" varStatus="status">
-                <div>
-                    <ul class="mt30 fl">
-                        <li class="ks_t_xh" for="option${status.index+1}">${status.index+1}</li>
-                        <li class="ks_tm mb10" id="${status.index+1}">${q.que_head}</li>
+                <c:forEach items="${queList}" var="q" varStatus="status">
+                    <div>
+                        <ul class="mt30 fl">
+                            <li class="ks_t_xh" for="option${status.index+1}">${status.index+1}</li>
+                            <li class="ks_tm mb10" id="${status.index+1}">${q.que_head}</li>
+                            <div class="clear"></div>
+                            <div id="option${status.index+1}">
+                                <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="A" >A.&nbsp;&nbsp;${q.que_opt_a}
+                                </p>
+                                <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="B" >B.&nbsp;&nbsp;${q.que_opt_b}
+                                </p>
+                                <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="C" >C.&nbsp;&nbsp;${q.que_opt_c}
+                                </p>
+                                <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="D" checked="">D.&nbsp;&nbsp;${q.que_opt_d}</p>
+                            </div>
+                            <p class="tm_xx">
+                                正确答案:<span style="color: red;padding-left: 10px" id="correctAnswer_${status.index+1}">${q.que_ans}</span>
+                            </p>
+                        </ul>
                         <div class="clear"></div>
-                        <div id="option${status.index+1}">
-                            <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="A" >A.&nbsp;&nbsp;${q.que_opt_a}
-                            </p>
-                            <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="B" >B.&nbsp;&nbsp;${q.que_opt_b}
-                            </p>
-                            <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="C" >C.&nbsp;&nbsp;${q.que_opt_c}
-                            </p>
-                            <p class="tm_xx"><input type="radio" class="mr5" name="ans_${status.index+1}" value="D" checked="">D.&nbsp;&nbsp;${q.que_opt_d}</p>
-                        </div>
-                        <p class="tm_xx">
-                            正确答案:<span style="color: red;padding-left: 10px" id="correctAnswer_${status.index+1}">${q.que_ans}</span>
-                        </p>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </c:forEach>
+                    </div>
+                </c:forEach>
                 <button style="width:100%;" type="submit">登录</button>
             </form>
 

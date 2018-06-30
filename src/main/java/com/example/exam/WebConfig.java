@@ -1,5 +1,6 @@
 package com.example.exam;
 
+import com.example.exam.Interceptor.ErrorInterceptor;
 import com.example.exam.Interceptor.SessionInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 //        logger.info("添加拦截器");
 //        registry.addInterceptor(new SessionInterceptor()).excludePathPatterns("/account/login");
 //        registry.addInterceptor(new SessionInterceptor()).excludePathPatterns("/account/valid");
+        registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/account/valid")
