@@ -1,6 +1,6 @@
 package com.example.exam.Entity;
 
-public class Questions {
+public class Questions implements Cloneable {
 
     public int que_id;
     public String que_head;
@@ -87,5 +87,16 @@ public class Questions {
     @Override
     public String toString() {
         return que_id + " "+ que_head +" "+ que_type +" "+ que_opt_a+" "+ que_opt_b+" "+ que_opt_c+" "+ que_opt_d+" "+ que_opt_e;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Questions questions = null;
+        try{
+            questions = (Questions)super.clone();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return questions;
     }
 }

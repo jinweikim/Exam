@@ -1,6 +1,7 @@
 package com.example.exam;
 
 import com.example.exam.Interceptor.ErrorInterceptor;
+import com.example.exam.Interceptor.QuizInterceptor;
 import com.example.exam.Interceptor.SessionInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("/css/*")
                 .excludePathPatterns("/lib/**")
                 .excludePathPatterns("/images/*");
+        registry.addInterceptor(new QuizInterceptor()).addPathPatterns("/quiz/start").addPathPatterns("/quiz/end");
         super.addInterceptors(registry);
     }
 
