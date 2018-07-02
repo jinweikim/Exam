@@ -1,9 +1,11 @@
 package com.example.exam.dao;
 
+import com.example.exam.Entity.ClassGrade;
 import com.example.exam.Entity.User;
 import org.apache.ibatis.annotations.Param;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserMapper {
@@ -33,6 +35,8 @@ public interface UserMapper {
     Integer update(User user);
 
     User getUser(@Param("id") String name,@Param("pwd") String pwd);
+
+    ArrayList<ClassGrade> AnalysisUser();
 
 
 

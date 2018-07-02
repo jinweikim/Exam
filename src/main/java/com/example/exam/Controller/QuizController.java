@@ -76,8 +76,10 @@ public class QuizController {
     }
 
     @RequestMapping("RepeatSubmit")
-    public ModelAndView repeatSubmit(){
+    public ModelAndView repeatSubmit(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
+        User user = (User)request.getSession().getAttribute("_session_user");
+        mav.addObject("grade",user.getGrade());
         mav.setViewName("RepeatSubmit");
         return mav;
     }

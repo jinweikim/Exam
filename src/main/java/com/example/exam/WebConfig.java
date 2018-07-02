@@ -21,7 +21,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 //        logger.info("添加拦截器");
 //        registry.addInterceptor(new SessionInterceptor()).excludePathPatterns("/account/login");
 //        registry.addInterceptor(new SessionInterceptor()).excludePathPatterns("/account/valid");
-        registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/account/valid")
@@ -31,6 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("/lib/**")
                 .excludePathPatterns("/images/*");
         registry.addInterceptor(new QuizInterceptor()).addPathPatterns("/quiz/start").addPathPatterns("/quiz/end");
+        registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

@@ -20,7 +20,14 @@ public class ErrorInterceptor implements HandlerInterceptor {
 
             if(modelAndView != null){
                 logger.info("拦截404");
-                modelAndView.setViewName("error");
+                modelAndView.setViewName("404");
+            }
+        }
+        if(response.getStatus() == 405){
+
+            if(modelAndView != null){
+                logger.info("拦截404");
+                modelAndView.setViewName("404");
             }
         }
     }

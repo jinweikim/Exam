@@ -1,8 +1,10 @@
 package com.example.exam.Service;
 
+import com.example.exam.Entity.ClassGrade;
 import com.example.exam.Entity.User;
 import org.omg.PortableInterceptor.INACTIVE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserService {
@@ -15,4 +17,5 @@ public interface UserService {
     Integer deleteById(String id);
     Integer update(User user);
     User getUser(String id,String pwd);
+    ArrayList<ClassGrade> AnalysisUser();
 }

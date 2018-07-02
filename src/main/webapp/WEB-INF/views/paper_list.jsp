@@ -27,7 +27,7 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim ">
+<body class="layui-anim layui-anim-fadein">
 <div class="x-body">
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>

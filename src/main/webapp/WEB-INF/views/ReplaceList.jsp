@@ -28,7 +28,7 @@
     <![endif]-->
 </head>
 
-<body class="layui-anim">
+<body class="layui-anim layui-anim-fadein">
 <div class="x-body">
     <xblock>
         <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">

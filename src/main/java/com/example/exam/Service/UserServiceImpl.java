@@ -1,5 +1,6 @@
 package com.example.exam.Service;
 
+import com.example.exam.Entity.ClassGrade;
 import com.example.exam.Entity.User;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.dao.UserMapper;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -66,5 +68,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUser(String id, String pwd) {
         return userMapper.getUser(id,pwd);
+    }
+
+    @Override
+    public ArrayList<ClassGrade> AnalysisUser() {
+        return userMapper.AnalysisUser();
     }
 }

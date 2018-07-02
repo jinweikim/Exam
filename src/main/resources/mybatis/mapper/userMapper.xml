@@ -9,6 +9,13 @@
         <result column = "user_class" property = "userClass" />
     </resultMap>
 
+    <resultMap id="GradeResultMap" type="com.example.exam.Entity.ClassGrade">
+        <result column="user_class" property="class_name"/>
+        <result column = "avg" property = "AverageGrade" />
+        <result column = "max" property = "maxGrade"/>
+        <result column="min" property="minGrade"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         user_id,user_name,user_password,user_grade,user_class
     </sql>
@@ -59,4 +66,12 @@
         WHERE
         user_id = #{id}
     </update>
+
+    <select id="AnalysisUser" resultMap="GradeResultMap">
+        select
+        user_class,AVG(user_grade) as avg,
+        MAX(user_grade) as max,
+        Min(user_grade) as min from userinfo
+        group by user_class
+    </select>
 </mapper>

@@ -34,29 +34,52 @@
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: '成绩分布图'
+            text: '班级成绩分析'
         },
         tooltip: {
             trigger: 'axis'
         },
         legend: {
-            data:['成绩']
+            data:['最高分','最低分','平均分']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
         },
         xAxis: {
-            name: '分数区间',
-            data: ['60分以下','60-70分','70-80分','80-90分','90分以上']
+            type: 'category',
+            boundaryGap: true,
+            data: []
         },
         yAxis: {
-            name: '人数/人',
-            type: 'value',
-            data: []
+            type: 'value'
         },
         series: [
             {
-                name:'成绩',
-                type:'bar',
+                name:'最高分',
+                type:'line',
+                stack: '总量',
                 data:[]
-            }
+            },
+            {
+                name:'最低分',
+                type:'line',
+                stack: '总量',
+                data:[]
+            },
+            {
+                name:'平均分',
+                type:'line',
+                stack: '总量',
+                data:[]
+            },
 
         ]
     };
@@ -64,27 +87,39 @@
     myChart.setOption(option);
     myChart.showLoading();
     $.ajax({
-        url: "/analysis/echarts1_data",
+        url: "/analysis/echarts2_data",
         type: "post",
         async: true,
         dataType: "json",
         success : function (result) {
-            var nums=[];
+            var Name=[];
+            var Max=[];
+            var Min=[];
+            var Avg=[];
             console.log(result);
             console.log(result.length);
             console.log("进入填充数据环节");
-            nums.push(result['low60']);
-            nums.push(result['six7']);
-            nums.push(result['seven8']);
-            nums.push(result.eight9);
-            nums.push(result.nine10);
+            for(var i=0;i<result.length;i++){
+                Name.push(result[i].class_name);
+                Max.push(result[i].maxGrade);
+                Min.push(result[i].minGrade);
+                Avg.push(result[i].averageGrade);
+            }
 
-            console.log(nums);
             myChart.hideLoading();
             myChart.setOption({
+                xAxis: {
+                    data: Name
+                },
                 series: [
                     {
-                        data:nums
+                        data:Max
+                    },
+                    {
+                        data:Min
+                    },
+                    {
+                        data:Avg
                     }
 
                 ]

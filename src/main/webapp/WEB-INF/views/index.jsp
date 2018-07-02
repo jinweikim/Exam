@@ -116,13 +116,13 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="echarts2.html">
+                        <a _href="/analysis/echarts2">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>柱状图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts3.html">
+                        <a _href="/analysis/echarts3">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>地图</cite>
                         </a>

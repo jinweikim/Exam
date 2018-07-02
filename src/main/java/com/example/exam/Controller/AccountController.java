@@ -27,7 +27,7 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-    private final static Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
+    private final static Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     public UserService userService;
@@ -36,9 +36,16 @@ public class AccountController {
     AccountService accountService;
 
     //打开登录界面
-    @RequestMapping(value="/login")
-    public String login(){
-        return "login";
+    @RequestMapping(value="login")
+    public ModelAndView login(HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
+        String msg = (String)   request.getAttribute("msg");
+        logger.info("msg:"+msg);
+        if(msg != null) {
+                mav.addObject("error", "登录失败!");
+        }
+        mav.setViewName("login");
+        return mav;
     }
 
     //欢迎界面
@@ -52,6 +59,7 @@ public class AccountController {
     //点击登录后验证合法性
     @RequestMapping(value = "/valid",method = RequestMethod.POST)
     public String valid(User user,HttpServletRequest request,Model model){
+        ModelAndView mav = new ModelAndView();
         User dbuser;
         dbuser = userService.getUser(user.getId(),user.getPassword());
         if(accountService.valid(dbuser)){
@@ -60,11 +68,13 @@ public class AccountController {
             if(user.getId().equals("1000")){
                 return "index";
             }else {
+                logger.info("开始考试");
                 return "redirect:/quiz/start";
             }
         }else{
             logger.info("登录失败");
-            return "error";
+            model.addAttribute("msg","error");
+            return "forward:/account/login";
         }
     }
 
