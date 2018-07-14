@@ -31,7 +31,8 @@
 <div class="x-body">
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','ReCombinePaper',600,400)"><i class="layui-icon"></i>重新生成试卷</button>
+        <%--<button class="layui-btn" onclick="x_admin_show('添加用户','ReCombinePaper',800,600)"><i class="layui-icon"></i>ဂ重新生成试卷</button>--%>
+        <button class="layui-btn" data-method="notice"><i class="layui-icon"></i>重新生成试卷</button>
         <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
         <span class="x-right" style="line-height:40px">共有数据:${queList.total}条</span>
@@ -49,14 +50,14 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${queList.list}" var="q">
+        <c:forEach items="${queList.list}" var="q" varStatus="status">
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
 
-                <td>${q.que_id}</td>
+                <td>${(queList.pageNum-1)*10+status.index+1}</td>
                 <td>${q.que_head}
                     <c:if test="${q.que_type=='opt'}">
                         <a onclick="optionDisplay(this,${q.que_id})" href="javascript:;" style="text-decoration:underline;color:blue">选项</a><br/>
@@ -71,7 +72,7 @@
                 </td>
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
-                    <a title="编辑" onclick="x_admin_show('编辑','replace_list?p=1&queId='+${q.que_id},600,400)" href="javascript:;">
+                    <a title="编辑" onclick="x_admin_show('编辑','replace_list?p=1&queId='+${q.que_id},800,600)" href="javascript:;">
                         <span class="layui-btn layui-btn-normal layui-btn-mini">替换</span>
                     </a>
                 </td>
@@ -81,11 +82,11 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="paperList?p=${queList.firstPage}">首页</a>
+            <a class="num" href="paperList?p=1">首页</a>
             <c:if test="${queList.pageNum!=1}"><a class="num" href="paperList?p=${queList.prePage}">前页</a></c:if>
             <b class="current">第${queList.pageNum}页</b>
-            <c:if test="${queList.pageNum!=queList.lastPage}"><a class="num" href="paperList?p=${queList.nextPage}">后页</a></c:if>
-            <a class="num" href="paperList?p=${queList.lastPage}">尾页</a>
+            <c:if test="${queList.pageNum!=queList.pages}"><a class="num" href="paperList?p=${queList.nextPage}">后页</a></c:if>
+            <a class="num" href="paperList?p=${queList.pages}">尾页</a>
         </div>
     </div>
 
@@ -107,6 +108,42 @@
 
     /*用户-停用*/
     /*用户-停用*/
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            notice: function(){
+                //示范一个公告层
+                layer.open({
+                    title :'设置'
+                    ,type: 1
+                    ,closeBtn: false
+                    ,area: '250px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '返回']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: '<div style="padding: 30px; background-color: #393D49; color: #fff; ">试卷的题目数：<input id="size" class="layui-form-item" type="number" name="points" min="20" max="100" /></div>'
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            onclick: 'newPaper()'
+                        });
+                    }
+                });
+            }
+        };
+
+        $('.layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+
+    /*用户-停用*/
     function optionDisplay(obj,id){
         var span=document.getElementById('option_'+id);
 
@@ -120,14 +157,17 @@
         }
     }
 
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+    function newPaper() {
+        var num = $("#size").val();
+        $.ajax({
+            type: "get",
+            url: "/paper/ReCombinePaper?num=" + num,
+            success: function (response) {
+                location.replace(location.href);
+            }
         });
     }
+
 
 
 
@@ -135,19 +175,13 @@
 
         var data = tableCheck.getData();
 
-        layer.confirm('确认要删除吗？'+data,function(index){
+        layer.confirm('确认要删除吗？',function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
 
 </html>

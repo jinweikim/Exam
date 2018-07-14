@@ -16,6 +16,12 @@
         <result column="min" property="minGrade"/>
     </resultMap>
 
+    <resultMap id="DifficultyResultMap" type="com.example.exam.Entity.Difficulty">
+        <result column="user_class" property="user_class"/>
+        <result column = "all_user" property = "all_user" />
+        <result column = "pass_user" property = "pass_user"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         user_id,user_name,user_password,user_grade,user_class
     </sql>
@@ -72,6 +78,16 @@
         user_class,AVG(user_grade) as avg,
         MAX(user_grade) as max,
         Min(user_grade) as min from userinfo
+        where user_class not like '%管理员%'
         group by user_class
+    </select>
+
+    <select id="AnalysisDiff" resultMap="DifficultyResultMap">
+        select user_class,
+        count(*) as all_user,
+        sum(case when user_grade>=60 then 1 else 0 end) as pass_user
+        from userinfo
+        where user_class not like '%管理员%'
+        group by user_class;
     </select>
 </mapper>

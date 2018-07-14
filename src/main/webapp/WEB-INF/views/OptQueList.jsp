@@ -84,15 +84,15 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="OptQueList?p=${queList.firstPage}">首页</a>
+            <a class="num" href="OptQueList?p=1">首页</a>
             <c:if test="${queList.pageNum!=1}">
                 <a class="num" href="OptQueList?p=${queList.prePage}">前页</a>
             </c:if>
             <b class="current">第${queList.pageNum}页</b>
-            <c:if test="${queList.pageNum!=queList.lastPage}">
+            <c:if test="${queList.pageNum!=queList.pages}">
                 <a class="num" href="OptQueList?p=${queList.nextPage}">后页</a>
             </c:if>
-            <a class="num" href="OptQueList?p=${queList.lastPage}">尾页</a>
+            <a class="num" href="OptQueList?p=${queList.pages}">尾页</a>
         </div>
     </div>
 
@@ -142,11 +142,11 @@
                         layer.msg('已删除!', {icon: 1, time: 1000});
                     }
                     else {
-                        layer.msg('删除失败!', {icon: 1, time: 1000});
+                        layer.msg('删除失败!', {icon: 5, time: 1000});
                     }
                 },
                 error: function () {
-                    layer.msg('删除失败!', {icon: 1, time: 1000});
+                    layer.msg('删除失败!', {icon: 5, time: 1000});
                 }
             });
         });
@@ -156,19 +156,14 @@
 
         var data = tableCheck.getData();
 
-        layer.confirm('确认要删除吗？'+data,function(index){
+        layer.confirm('确认要删除吗？',function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
+
 </body>
 
 </html>

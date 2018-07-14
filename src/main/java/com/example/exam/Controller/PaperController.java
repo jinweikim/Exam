@@ -50,7 +50,8 @@ public class PaperController {
     }
 
     @RequestMapping("/ReCombinePaper")
-    public @ResponseBody ResultCode PaperCombine(){
+    public @ResponseBody ResultCode PaperCombine(HttpServletRequest request){
+
 
         paperService.deleteAll();
         ArrayList<Questions> AllOptList = new ArrayList<>();
@@ -58,12 +59,14 @@ public class PaperController {
         ArrayList<Questions> OptList = new ArrayList<>();
         ArrayList<Questions> BlankList = new ArrayList<>();
 
+        int num = Integer.parseInt(request.getParameter("num"));
         AllOptList = (ArrayList)queService.getOptList();
         AllBlankList = (ArrayList)queService.getBlankList();
         logger.info("Opt大小:"+AllOptList.size());
         logger.info("Blank大小:"+AllBlankList.size());
-        OptList = QueUtils.getRandomList(AllOptList,10);//从选择题题库选择指定数目的题目
-        BlankList = QueUtils.getRandomList(AllBlankList,10);//从填空题题库选择指定数目的题目
+        int half = num/2;
+        OptList = QueUtils.getRandomList(AllOptList,half);//从选择题题库选择指定数目的题目
+        BlankList = QueUtils.getRandomList(AllBlankList,num-half);//从填空题题库选择指定数目的题目
         logger.info("Opt大小:"+OptList.size());
         logger.info("Blank大小:"+BlankList.size());
         OptList.addAll(BlankList);//合并两个list

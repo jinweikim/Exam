@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>后台登录-X-admin2.0</title>
+    <title>分析图2</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -33,6 +33,7 @@
 
     // 指定图表的配置项和数据
     var option = {
+        animation:false,
         title: {
             text: '班级成绩分析'
         },
@@ -65,19 +66,16 @@
             {
                 name:'最高分',
                 type:'line',
-                stack: '总量',
                 data:[]
             },
             {
                 name:'最低分',
                 type:'line',
-                stack: '总量',
                 data:[]
             },
             {
                 name:'平均分',
                 type:'line',
-                stack: '总量',
                 data:[]
             },
 

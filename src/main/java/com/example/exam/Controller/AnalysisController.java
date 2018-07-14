@@ -1,9 +1,6 @@
 package com.example.exam.Controller;
 
-import com.example.exam.Entity.ClassGrade;
-import com.example.exam.Entity.GradeDistributition;
-import com.example.exam.Entity.ResultCode;
-import com.example.exam.Entity.User;
+import com.example.exam.Entity.*;
 import com.example.exam.Service.PaperService;
 import com.example.exam.Service.UserService;
 import org.slf4j.Logger;
@@ -74,7 +71,6 @@ public class AnalysisController {
         classes = userService.AnalysisUser();
         for(ClassGrade cg:classes){
             //ClassGrade classGrade = new ClassGrade(cg.getClassName(),cg.getMaxGrade(),cg.getMinGrade(),cg.getAverageGrade());
-
             logger.info("平均分"+cg.getAverageGrade());
             logger.info("最高分"+cg.getMaxGrade());
             logger.info("最低分"+cg.getMinGrade());
@@ -82,6 +78,19 @@ public class AnalysisController {
         return classes;
 
     }
+    @RequestMapping("/echarts3")
+    public ModelAndView eCharts3(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("echarts3");
+        return mav;
+    }
 
+    @RequestMapping("/echarts3_data")
+    public @ResponseBody ArrayList<Difficulty> echarts3_data(){
+
+        ArrayList<Difficulty> difficulties = new ArrayList<>();
+        difficulties = userService.AnalysisDiff();
+        return difficulties;
+    }
 
 }

@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,7 +40,7 @@
             <h1 class="ks_left_tit" id="keguanti">
                 客观题
                 <span class="col666 fs14 ml8">
-    			(共20题)
+    			(共${fn:length(queList)}题)
     			</span>
             </h1>
             <c:forEach items="${queList}" var="q" varStatus="status">
@@ -100,30 +102,19 @@
                         得分：<span class="col_red">${grade}</span>
                     </li>
                     <li class="r_top_sl mt10">
-                        客观题：作答 <span class="col_red">20</span> 题，
+                        客观题：作答 <span class="col_red">${fn:length(queList)}</span> 题，
                         <%--答对<span class="col_red" id="span_objRightCount">${grade/5}</span> 题，--%>
                         得 <span class="col_red">${grade}</span> 分。
                     </li>
 
                 </ul>
                 <dl class="ks_r_cen mt20" style="margin-bottom:50px;">
-                    <dt class="r_cen_dl"><img src="/images/ks_r_ywhite.png"><a class="r_cen_tit"
-                                                                               href="#keguanti">客观题</a></dt>
-                    <dd class="rr_cen_dd">
-                        <a class="rr_cen_xh" id="obj_nav_1" name="obj_nav" href="#1">1 - 4</a>
-                    </dd>
-                    <dd class="rr_cen_dd">
-                        <a class="rr_cen_xh" id="obj_nav_5" name="obj_nav" href="#4">5 - 8</a>
-                    </dd>
-                    <dd class="rr_cen_dd">
-                        <a class="rr_cen_xh" id="obj_nav_9" name="obj_nav" href="#9">9 - 12</a>
-                    </dd>
-                    <dd class="rr_cen_dd">
-                        <a class="rr_cen_xh" id="obj_nav_13" name="obj_nav" href="#13">13 - 16</a>
-                    </dd>
-                    <dd class="rr_cen_dd">
-                        <a class="rr_cen_xh" id="obj_nav_17" name="obj_nav" href="#17">17 - 20</a>
-                    </dd>
+                    <dt class="r_cen_dl"><img src="/images/ks_r_ywhite.png"><a class="r_cen_tit" href="#keguanti">客观题</a></dt>
+                    <c:forEach var="item" varStatus="status" begin="1" end="${fn:length(queList)}" step="4">
+                        <dd class="rr_cen_dd">
+                            <a class="rr_cen_xh" id="obj_nav_${status.index}" name="obj_nav" href="#${status.index}">${status.index} - ${status.index+3}</a>
+                        </dd>
+                    </c:forEach>
                     <dt class="r_cen_js"></dt>
                 </dl>
             </div>

@@ -25,6 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/account/valid")
                 .excludePathPatterns("/account/user")
+                .excludePathPatterns("/account/index")
                 .excludePathPatterns("/js/*")
                 .excludePathPatterns("/css/*")
                 .excludePathPatterns("/lib/**")

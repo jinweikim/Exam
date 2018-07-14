@@ -1,6 +1,7 @@
 package com.example.exam.Service;
 
 import com.example.exam.Entity.ClassGrade;
+import com.example.exam.Entity.Difficulty;
 import com.example.exam.Entity.User;
 import org.omg.PortableInterceptor.INACTIVE;
 
@@ -18,4 +19,5 @@ public interface UserService {
     Integer update(User user);
     User getUser(String id,String pwd);
     ArrayList<ClassGrade> AnalysisUser();
+    ArrayList<Difficulty> AnalysisDiff();
 }

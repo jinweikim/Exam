@@ -167,6 +167,7 @@ public class QueController {
         try{
             result = queService.deleteById(id);
         }catch (Exception e){
+            e.printStackTrace();
             resultCode.setStatus("failed");
         }
         if(result != 0){

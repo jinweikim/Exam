@@ -30,26 +30,23 @@
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
-    <ul class="layui-nav left fast-add" lay-filter="">
-        <li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-                <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-                <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
-            </dl>
-        </li>
-    </ul>
+    <%--<ul class="layui-nav left fast-add" lay-filter="">--%>
+        <%--<li class="layui-nav-item">--%>
+            <%--<a href="javascript:;">+新增</a>--%>
+            <%--<dl class="layui-nav-child"> <!-- 二级菜单 -->--%>
+                <%--<dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>--%>
+                <%--<dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>--%>
+                <%--<dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>--%>
+            <%--</dl>--%>
+        <%--</li>--%>
+    <%--</ul>--%>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
             <a href="javascript:;">admin</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
                 <dd><a href="/account/login">退出</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
     </ul>
 
 </div>
@@ -112,51 +109,22 @@
                     <li>
                         <a _href="/analysis/echarts1">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
+                            <cite>成绩分布分析</cite>
                         </a>
                     </li >
                     <li>
                         <a _href="/analysis/echarts2">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>柱状图</cite>
+                            <cite>班级成绩分析</cite>
                         </a>
                     </li>
                     <li>
                         <a _href="/analysis/echarts3">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
+                            <cite>试卷难易程度</cite>
                         </a>
                     </li>
-                    <li>
-                        <a _href="echarts4.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts5.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>雷达图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts6.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>k线图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts7.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>热力图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts8.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>仪表图</cite>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
 
@@ -169,7 +137,7 @@
 <div class="page-content">
     <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
         <ul class="layui-tab-title">
-            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+            <li class="home"><i class="layui-icon">&#xe68e;</i>欢迎</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
@@ -182,19 +150,9 @@
 <!-- 右侧主体结束 -->
 <!-- 中部结束 -->
 <!-- 底部开始 -->
-<div class="footer">
-    <div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved</div>
-</div>
+<%--<div class="footer">--%>
+    <%--<div class="copyright">Copyright ©2018 x-admin v2.3 All Rights Reserved</div>--%>
+<%--</div>--%>
 <!-- 底部结束 -->
-<%--<script>--%>
-    <%--//百度统计可去掉--%>
-    <%--var _hmt = _hmt || [];--%>
-    <%--(function() {--%>
-        <%--var hm = document.createElement("script");--%>
-        <%--hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";--%>
-        <%--var s = document.getElementsByTagName("script")[0];--%>
-        <%--s.parentNode.insertBefore(hm, s);--%>
-    <%--})();--%>
-<%--</script>--%>
 </body>
 </html>

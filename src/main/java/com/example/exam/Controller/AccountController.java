@@ -38,8 +38,9 @@ public class AccountController {
     //打开登录界面
     @RequestMapping(value="login")
     public ModelAndView login(HttpServletRequest request){
+        request.getSession().setAttribute("_session_user",null);
         ModelAndView mav = new ModelAndView();
-        String msg = (String)   request.getAttribute("msg");
+        String msg = (String)request.getAttribute("msg");
         logger.info("msg:"+msg);
         if(msg != null) {
                 mav.addObject("error", "登录失败!");
@@ -66,7 +67,7 @@ public class AccountController {
             request.getSession().setAttribute("_session_user",dbuser);
             logger.info("登录成功");
             if(user.getId().equals("1000")){
-                return "index";
+                return "redirect:/account/index";
             }else {
                 logger.info("开始考试");
                 return "redirect:/quiz/start";
@@ -75,6 +76,18 @@ public class AccountController {
             logger.info("登录失败");
             model.addAttribute("msg","error");
             return "forward:/account/login";
+        }
+    }
+
+    //点击登录后验证合法性
+    @RequestMapping(value = "/index")
+    public String index(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("_session_user");
+        if(user!=null&&user.getId().trim().equals("1000")){
+                return "index";
+        }
+        else{
+            return "redirect:/account/login";
         }
     }
 

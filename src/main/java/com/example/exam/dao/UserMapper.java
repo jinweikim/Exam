@@ -1,6 +1,7 @@
 package com.example.exam.dao;
 
 import com.example.exam.Entity.ClassGrade;
+import com.example.exam.Entity.Difficulty;
 import com.example.exam.Entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,6 +38,8 @@ public interface UserMapper {
     User getUser(@Param("id") String name,@Param("pwd") String pwd);
 
     ArrayList<ClassGrade> AnalysisUser();
+
+    ArrayList<Difficulty> AnalysisDiff();
 
 
 

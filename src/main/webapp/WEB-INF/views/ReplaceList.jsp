@@ -71,7 +71,7 @@
                 <td>${q.que_ans}</td>
                 <td class="td-manage" align="center">
                     <a title="编辑" onclick="update('doReplace?replaceId=${q.que_id}&sourceId=${sourceId}')" href="javascript:;">
-                        <span class="layui-btn layui-btn-normal layui-btn-mini">用此替换</span>
+                        <span class="layui-btn layui-btn-danger  layui-btn-mini">用此替换</span>
                     </a>
                 </td>
             </tr>
@@ -80,15 +80,15 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="replace_list?p=${queList.firstPage}&queId=${sourceId}">首页</a>
+            <a class="num" href="replace_list?p=1&queId=${sourceId}">首页</a>
             <c:if test="${queList.pageNum!=1}">
                 <a class="num" href="replace_list?p=${queList.prePage}&queId=${sourceId}">前页</a>
             </c:if>
             <b class="current">第${queList.pageNum}页</b>
-            <c:if test="${queList.pageNum!=queList.lastPage}">
+            <c:if test="${queList.pageNum!=queList.pages}">
                 <a class="num" href="replace_list?p=${queList.nextPage}&queId=${sourceId}">后页</a>
             </c:if>
-            <a class="num" href="replace_list?p=${queList.lastPage}&queId=${sourceId}">尾页</a>
+            <a class="num" href="replace_list?p=${queList.pages}&queId=${sourceId}">尾页</a>
         </div>
     </div>
 
@@ -152,12 +152,5 @@
 
 
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
-
 </html>

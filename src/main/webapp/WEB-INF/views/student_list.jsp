@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎来到在线考试系统管理区</title>
+    <title>考生列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -83,16 +83,16 @@
     </table>
     <div class="page">
         <div>
-            <a class="num" href="student_list?p=${studentList.firstPage}">首页</a>
+            <a class="num" href="student_list?p=1">首页</a>
             <c:if test="${studentList.pageNum!=1}">
                 <a class="num" href="student_list?p=${studentList.prePage}">前页</a>
             </c:if>
 
             <b class="current">第${studentList.pageNum}页</b>
-            <c:if test="${studentList.pageNum!=studentList.lastPage}">
+            <c:if test="${studentList.pageNum!=studentList.pages}">
                 <a class="num" href="student_list?p=${studentList.nextPage}">后页</a>
             </c:if>
-            <a class="num" href="student_list?p=${studentList.lastPage}">尾页</a>
+            <a class="num" href="student_list?p=${studentList.pages}">尾页</a>
         </div>
     </div>
 
@@ -169,19 +169,12 @@
 
         var data = tableCheck.getData();
 
-        layer.confirm('确认要删除吗？'+data,function(index){
+        layer.confirm('确认要删除吗？',function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
-
 </html>

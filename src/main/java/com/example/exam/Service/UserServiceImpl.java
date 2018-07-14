@@ -1,6 +1,7 @@
 package com.example.exam.Service;
 
 import com.example.exam.Entity.ClassGrade;
+import com.example.exam.Entity.Difficulty;
 import com.example.exam.Entity.User;
 import com.example.exam.Interceptor.SessionInterceptor;
 import com.example.exam.dao.UserMapper;
@@ -73,5 +74,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public ArrayList<ClassGrade> AnalysisUser() {
         return userMapper.AnalysisUser();
+    }
+
+    @Override
+    public ArrayList<Difficulty> AnalysisDiff() {
+        return userMapper.AnalysisDiff();
     }
 }

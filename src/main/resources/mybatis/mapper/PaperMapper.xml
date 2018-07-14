@@ -42,6 +42,7 @@
         FROM Paper,Questions
         WHERE
         Paper.que_id=Questions.que_id
+        order by que_type desc
     </select>
 
     <select id="getPaperByQueId" resultMap="BaseResultMap">
